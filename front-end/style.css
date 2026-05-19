@@ -1,0 +1,261 @@
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f5f5f5;
+  color: #36454f;
+}
+
+nav {
+  border-bottom: 3px solid #36454f;
+  background-color: #0b5190;
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 30px;
+}
+
+#logo-img {
+  margin: 13px;
+  height: 40px;
+  float: left;
+  transform: scaleX(-1)
+}
+
+ul {
+  list-style-type: none;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #f5f5f5;
+  margin: 5px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#simulation-hyperlink {
+  float: right;
+  text-align: right;
+}
+
+#aboutme-hyperlink {
+  float: right;
+  text-align: right;
+}
+
+#donate-hyperlink {
+  float: right;
+  text-align: right;
+}
+
+#subtitle {
+  font-size: 22px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-top: 0px;
+  margin-left: 30px;  
+  line-height: 1.4;
+}
+
+#paragraph1 {
+  font-size: 18px;
+  margin-top: 0px;
+  margin-left: 20px;  
+  letter-spacing: 0px;
+  color: #0f1728;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+#feature-elements {
+  display: inline-block;
+}
+
+#sim-portal {
+  margin-top: 40px;
+  background-color: #0b5190;
+  width: 40%;
+  height: 35px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#button-block {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+#privacy-element {
+  display: grid;
+  place-items: center;
+}
+
+#shield {
+  float: left;
+}
+
+#paragraph2 {
+  padding-top: 6px;
+  font-size: 10px;
+}
+
+@media (min-width: 1155px) {
+  .feature {
+  	display: inline-block;
+  	width: 21%;
+  	height: 50vh;
+  	float: left;
+  	margin: 10px;
+  	padding: 10px;
+  	border: 2px solid #0b5190;
+  	border-radius: 20px;
+  }
+  
+  .feature-title {
+    padding: 10px;
+    font-weight: 900;
+    color: #0b5190;
+    font-size: 18px;
+    display: inline-block;
+    margin: 0px;
+    font-weight: 600;
+  }
+
+  .feature-paragraph {
+    color: #0b5190;
+    font-size: 18px;
+    padding: 10px;
+    margin: 0px;
+  }
+
+  .feature-img {
+    float: left;
+    height: 35px;
+  }
+}
+
+@media (max-width: 1155px) and (min-width: 860px) {
+  .feature {
+  	display: inline-block;
+  	width: 20%;
+  	height: 50vh;
+  	float: left;
+  	margin: 10px;
+  	padding: 10px;
+  	border: 2px solid #0b5190;
+  	border-radius: 20px;
+  }
+  
+  .feature-title {
+    padding: 10px;
+    font-weight: 900;
+    color: #0b5190;
+    font-size: 18px;
+    display: inline-block;
+    margin: 0px;
+    font-weight: 600;
+  }
+
+  .feature-paragraph {
+    color: #0b5190;
+    font-size: 18px;
+    padding: 10px;
+    margin: 0px;
+  }
+
+  .feature-img {
+    display: none;
+    float: left;
+    height: 35px;
+  }
+}
+
+@media (max-width: 860px) and (min-width: 282px) {
+  .feature {
+  	display: inline-block;
+  	width: 44%;
+  	height: 50vh;
+  	float: left;
+  	margin: 10px;
+  	padding: 10px;
+  	border: 2px solid #0b5190;
+  	border-radius: 20px;
+  }
+  
+  .feature-title {
+    padding: 10px;
+    font-weight: 900;
+    color: #0b5190;
+    font-size: 18px;
+    display: inline-block;
+    margin: 0px;
+    font-weight: 600;
+  }
+
+  .feature-paragraph {
+    color: #0b5190;
+    font-size: 18px;
+    padding: 10px;
+    margin: 0px;
+  }
+
+  .feature-img {
+    display: none;
+    float: left;
+    height: 35px;
+  }
+}
+
+@media (max-width: 282px) {
+  
+  body {
+    display: none;
+    font-family: "Inter", sans-serif;
+    background-color: #f5f5f5;
+    color: #36454f;
+  }
+}
+
+@media (min-width: 677px) {
+  
+  #trajectory-img {
+    float: right;
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px
+  }
+  #title {
+    font-weight: 700;
+    font-size: 58px;
+    color: #0f1728;
+    margin: 6px;
+    margin-left: 30px;
+    margin-top: 30px;
+    letter-spacing: -0.03em;
+    line-height: 0.96;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 677px) {
+  
+  #trajectory-img {
+    float: right;
+    max-width: 50%;
+    height: auto;
+    display: none;
+    margin-top: 0px;
+    margin-bottom: 0px
+  }
+  #title {
+    font-weight: 700;
+    font-size: 58px;
+    color: #0f1728;
+    margin: 6px;
+    margin-left: 30px;
+    margin-top: 30px;
+    letter-spacing: -0.03em;
+    line-height: 0.96;
+    max-width: 100%;
+  }
+}
