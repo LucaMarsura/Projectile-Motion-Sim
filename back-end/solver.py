@@ -1,6 +1,6 @@
-from simulation.py import simul
+from simulation import simul
 
-def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_density,true_cd,true_area):
+def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_gravity,true_distance,true_maxheight,true_time,true_fvelocity,true_mass,true_density,true_cd,true_area,allow_timestamps,depprofile):
     uncertainty = 1
     iterations = 0
     if not bool(true_ivelocity):
@@ -8,7 +8,7 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
         x = 10
         if bool(true_distance):
             true_distance = float(true_distance)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(experimental_ivelocity,true_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_distance = max(list_distance)
                 if allow_timestamps:
@@ -27,7 +27,7 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
             result_fangle = list_angle[-1]
         if bool(true_maxheight):
             true_maxheight = float(true_maxheight)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(experimental_ivelocity,true_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_maxheight = max(list_height)
                 if allow_timestamps:
@@ -46,7 +46,7 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
             result_fangle = list_angle[-1]
         elif bool(true_time):
             true_time = float(true_time)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(experimental_ivelocity,true_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_time = list_time[-1]
                 if allow_timestamps:
@@ -58,14 +58,13 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_time - true_time) / true_time
-            result_ivelocity = float(experimental_ivelocity)
             result_distance = list_distance[-1]
             result_maxheight = max(list_height)
             result_fvelocity = list_velocity[-1]
             result_fangle = list_angle[-1]
         elif bool(true_fvelocity):
             true_fvelocity = float(true_fvelocity)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(experimental_ivelocity,true_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_fvelocity = list_velocity[-1]
                 if allow_timestamps:
@@ -77,17 +76,16 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_fvelocity - true_fvelocity) / true_fvelocity
-            result_ivelocity = float(experimental_ivelocity)
-            result_distance = list_distance[-1]
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fangle = list_angle[-1]
+        result_ivelocity = experimental_ivelocity
+        result_iheight = true_iheight
+        result_iangle = true_iangle
+        result_gravity = true_gravity
     elif not bool(true_iheight):
         experimental_iheight = 100
         x = 50
         if bool(true_distance):
             true_distance = float(true_distance)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,experimental_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_distance = max(list_distance)
                 if allow_timestamps:
@@ -99,16 +97,11 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_distance - true_distance) / true_distance
-            result_iheight = float(experimental_iheight)
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_maxheight):
             true_maxheight = float(true_maxheight)
             experimental_iheight = 100
             x = 50
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,experimental_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_maxheight = max(list_height)
                 if allow_timestamps:
@@ -120,14 +113,9 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
-            result_iheight = float(experimental_iheight)
-            result_distance = list_distance[-1]
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_time):
             true_time = float(true_time)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,experimental_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_time = list_time[-1]
                 if allow_timestamps:
@@ -139,14 +127,9 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_time - true_time) / true_time
-            result_iheight = float(experimental_iheight)
-            result_distance = list_distance[-1]
-            result_maxheight = max(list_height)
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_fvelocity):
             true_fvelocity = float(true_fvelocity)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,experimental_iheight,true_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_fvelocity = list_velocity[-1]
                 if allow_timestamps:
@@ -158,99 +141,79 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_fvelocity - true_fvelocity) / true_fvelocity
-            result_iheight = float(experimental_iheight)
-            result_distance = list_distance[-1]
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fangle = list_angle[-1]
+        result_ivelocity = true_ivelocity
+        result_iheight = experimental_iheight
+        result_iangle = true_iangle
+        result_gravity = true_gravity
     elif not bool(true_iangle):
-        experimental_iangle1 = 45
-        x = 22.5
+        experimental_iangle = 0
+        x = 45
         if bool(true_distance):
             true_distance = float(true_distance)
-            while abs(uncertainty) > 0.01 and iterations < 100:
-                list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,experimental_iangle1,true_gravity,true_mass,true_density,true_cd,true_area)
+            while abs(uncertainty) > 0.001 and iterations < 100:
+                list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,experimental_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_distance = list_distance[-1]
                 if allow_timestamps:
-                    print(f"\nIteration {iterations + 1}\nTested initial angle: {round(experimental_iangle1,3)} degrees\nnResultant trial distance: {round(trial_distance,3)} m\nTrue distance: {round(true_distance,3)} m\nRelative uncertainty: {round(abs(uncertainty),5)}")
+                    print(f"\nIteration {iterations + 1}\nTested initial angle: {round(experimental_iangle,3)} degrees\nnResultant trial distance: {round(trial_distance,3)} m\nTrue distance: {round(true_distance,3)} m\nRelative uncertainty: {round(abs(uncertainty),5)}")
                 if trial_distance > true_distance:
-                    experimental_iangle1 -= x
+                    experimental_iangle -= x
                 elif trial_distance < true_distance:
-                    experimental_iangle1 += x
+                    experimental_iangle += x
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_distance - true_distance) / true_distance
-            result_iangle1 = float(experimental_iangle1)
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_maxheight):
             true_maxheight = float(true_maxheight)
             while abs(uncertainty) > 0.01 and iterations < 100:
-                list_height, list_distance, list_time, list_velocity, list_angle =  simul(true_ivelocity,true_iheight,experimental_iangle1,true_gravity,true_mass,true_density,true_cd,true_area)
+                list_height, list_distance, list_time, list_velocity, list_angle =  simul(true_ivelocity,true_iheight,experimental_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_maxheight = max(list_height)
                 if allow_timestamps:
-                    print(f"\nIteration {iterations + 1}\nTested initial angle: {round(experimental_iangle1,3)} degrees\nResultant trial maximum height: {round(trial_maxheight,3)} m\nTrue maximum height: {round(true_maxheight,3)} m\nRelative uncertainty: {round(abs(uncertainty),5)}")
+                    print(f"\nIteration {iterations + 1}\nTested initial angle: {round(experimental_iangle,3)} degrees\nResultant trial maximum height: {round(trial_maxheight,3)} m\nTrue maximum height: {round(true_maxheight,3)} m\nRelative uncertainty: {round(abs(uncertainty),5)}")
                 if trial_maxheight > true_maxheight:
-                    experimental_iangle1 -= x
+                    experimental_iangle -= x
                 elif trial_maxheight < true_maxheight:
-                    experimental_iangle1 += x
+                    experimental_iangle += x
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
-            result_iangle1 = float(experimental_iangle1)
-            result_distance = list_distance[-1]
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_time):
             true_time = float(true_time)
-            while abs(uncertainty) > 0.01 and iterations < 100:
-                list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,experimental_iangle1,true_gravity,true_mass,true_density,true_cd,true_area)
+            while abs(uncertainty) > 0.001 and iterations < 100:
+                list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,experimental_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_time = list_time[-1]
                 if allow_timestamps:
-                    print(f"\nIteration {iterations + 1}\nTested initial angle: {round(experimental_iangle1,3)} degrees\nResultant trial time: {round(trial_time,3)} m\nTrue time: {round(true_time,3)} m\nRelative uncertainty: {round(abs(uncertainty),5)}")
+                    print(f"\nIteration {iterations + 1}\nTested initial angle: {round(experimental_iangle,3)} degrees\nResultant trial time: {round(trial_time,3)} m\nTrue time: {round(true_time,3)} m\nRelative uncertainty: {round(abs(uncertainty),5)}")
                 if trial_time > true_time:
-                    experimental_iangle1 -= x
+                    experimental_iangle -= x
                 elif trial_time < true_time:
-                    experimental_iangle1 += x
+                    experimental_iangle += x
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_time - true_time) / true_time
-            result_iangle1 = float(experimental_iangle1)
-            result_distance = list_distance[-1]
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_fvelocity):
             true_fvelocity = float(true_fvelocity)
-            while abs(uncertainty) > 0.01 and iterations < 100:
-                list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,experimental_iangle1,true_gravity,true_mass,true_density,true_cd,true_area)
+            while abs(uncertainty) > 0.001 and iterations < 100:
+                list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,experimental_iangle,true_gravity,true_mass,true_density,true_cd,true_area)
                 trial_fvelocity = list_fvelocity[-1]
                 if allow_timestamps:
-                    print(f"\nIteration {iterations + 1}\nTested initial angle: {experimental_iangle1} degrees\nResultant trial final velociy: {trial_fvelocity} m\nTrue final velocity: {true_fvelocity} m\nRelative uncertainty: {uncertainty}")
+                    print(f"\nIteration {iterations + 1}\nTested initial angle: {experimental_iangle} degrees\nResultant trial final velociy: {trial_fvelocity} m\nTrue final velocity: {true_fvelocity} m\nRelative uncertainty: {uncertainty}")
                 if trial_fvelocity > true_fvelocity:
-                    experimental_iangle1 -= x
+                    experimental_iangle -= x
                 elif trial_fvelocity < true_fvelocity:
-                    experimental_iangle1 += x
+                    experimental_iangle += x
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_fvelocity - true_fvelocity) / true_fvelocity
-            result_iangle1 = float(experimental_iangle1)
-            result_gravity = true_gravity
-            result_distance = list_distance[-1]
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
+        result_ivelocity = experimental_ivelocity
+        result_iheight = true_iheight
+        result_iangle = experimental_iangle
+        result_gravity = true_gravity
     elif not bool(true_gravity):
         experimental_gravity = 25
         x = 12.5
         if bool(true_distance):
             true_distance = float(true_distance)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,true_iangle,experimental_gravity,true_mass,true_density,true_cd,true_area)
                 trial_distance = list_distance[-1]
                 if allow_timestamps:
@@ -262,14 +225,9 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_distance - true_distance) / true_distance
-            result_gravity = float(experimental_gravity)
-            result_maxheight = max(list_height)
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_maxheight):
             true_maxheight = float(true_maxheight)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,true_iangle,experimental_gravity,true_mass,true_density,true_cd,true_area)
                 trial_maxheight = max(list_height)
                 if allow_timestamps:
@@ -281,14 +239,9 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                 x /= 2
                 iterations += 1
                 uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
-            result_gravity = float(experimental_gravity)
-            result_distance = list_distance[-1]
-            result_time = list_time[-1]
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
         elif bool(true_time):
             true_time = float(true_time)
-            while abs(uncertainty) > 0.01 and iterations < 100:
+            while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simul(true_ivelocity,true_iheight,true_iangle,experimental_gravity,true_mass,true_density,true_cd,true_area)
                 trial_time = list_time[-1]
                 if allow_timestamps:
@@ -299,8 +252,9 @@ def iterative_solve(true_ivelocity,true_iheight,true_iangle,true_mass,true_densi
                     experimental_gravity -= x
                 x /= 2
                 iterations +=1
-            result_gravity = float(experimental_gravity)
-            result_distance = list_distance[-1]
-            result_maxheight = max(list_height)
-            result_fvelocity = list_velocity[-1]
-            result_fangle = list_angle[-1]
+        result_ivelocity = true_ivelocity
+        result_iheight = true_iheight
+        result_iangle = true_iangle
+        result_gravity = experimental_gravity
+
+    return result_ivelocity,result_iheight,result_iangle,result_gravity,uncertainty,iterations
