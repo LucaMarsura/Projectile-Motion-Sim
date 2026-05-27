@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    border-bottom: 3px solid #36454f;
+    background-color: #0b5190;
+    padding: 0 10px 0 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 66px;
+}
+
+ul li:first-child {
+    margin-right: auto;
+}
+
+#logo-img {
+    height: 35px;
+    margin: 5px;
+    margin-left: 15px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#top {
+    padding: 60px 30px 40px 60px;
+    border-bottom: 1.5px solid #e5e5e5;
+}
+
+#title {
+    font-size: 56px;
+    font-weight: 800;
+    color: #0f1728;
+    margin: 0 0 8px 0;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+#subtitle {
+    font-size: 22px;
+    font-weight: 500;
+    color: #6b7280;
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+}
+
+.list {
+    padding: 0 30px 0 60px;
+    max-width: 900px;
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.item-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: #b0b8c1;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+    letter-spacing: -0.03em;
+}
+
+.item-text {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0b5190;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.02em;
+}
+
+.item-para {
+    font-size: 16px;
+    font-weight: 400;
+    color: #36454f;
+    margin: 0;
+    line-height: 1.75;
+    max-width: 620px;
+}
+
+.divider {
+    height: 1.5px;
+    background-color: #e5e5e5;
+    margin: 0 0 0 60px;
+}
+
+@media (max-width: 600px) {
+    #top {
+        padding: 40px 20px 30px 20px;
+    }
+
+    #title {
+        font-size: 36px;
+    }
+
+    .list {
+        padding: 0 20px;
+    }
+
+    .item {
+        gap: 20px;
+    }
+
+    .item-num {
+        font-size: 32px;
+        width: 40px;
+    }
+
+    .item-title {
+        font-size: 18px;
+    }
+
+    .item-para {
+        font-size: 14px;
+    }
+
+    .divider {
+        margin: 0 0 0 20px;
+    }
+}

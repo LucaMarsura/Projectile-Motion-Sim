@@ -9,11 +9,13 @@
 <body>
   <nav>
       <ul>
-          <li><a href = "index.html" id = "homescreen-hyperlink"><img src = "images/logo2.png" id = "logo-img"></a></li>
-          <li><a href = "donate.html" id = "donate-hyperlink" class = "hyperlinks">Donate</a></li>
-          <li><a href = "aboutme.html" id = "aboutme-hyperlink" class = "hyperlinks">About Me</a></li>
-          <li><a href = "sim.html" id = "simulation-hyperlink" class = "hyperlinks">Simulation</a></li>
-      </ul>
+        <li><a href="index.html" id="homescreen-hyperlink"><img src="images/logo.png" id="logo-img"></a></li>
+        <li><a href="learn.html" class="hyperlinks">Learn</a></li>
+        <li><a href="gameindex.html" class="hyperlinks">Game</a></li>
+        <li><a href="sim.html" id="simulation-hyperlink" class="hyperlinks">Simulation</a></li>
+        <li><a href="features.html" class="hyperlinks">Features</a></li>
+        <li><a href="guide.html" class="hyperlinks">Guide</a></li>
+    </ul>
   </nav>
   <div id = "total">
     <h1 id = "title">Projectile Motion and Drag Simulation</h1>
@@ -54,13 +56,13 @@
           <h3>Dependent Variable</h3>
           <div>
             <input id = "bool_distance" value = "bool_distance" type = "radio" name = "depbool">
-            <input id = "distance" type = "range" min = "0" max = "10" value = "0" step = "0.1" disabled>
+            <input id = "distance" type = "range" min = "0" max = "50" value = "4" step = "0.1" disabled>
             <span id = "distance_label" class = "dep_labels">0</span>
             <label for = "distance">Distance Traveled</label>
           </div>
           <div>
             <input id = "bool_maxheight" value = "bool_maxheight" type = "radio" name = "depbool">
-            <input id = "maxheight" type = "range" min = "0" max = "10" value = "0" step = "0.1" disabled>
+            <input id = "maxheight" type = "range" min = "0" max = "50" value = "4" step = "0.1" disabled>
             <span id = "maxheight_label" class = "dep_labels">0</span>
             <label for = "maxheight">Peak Height Reached</label>
           </div>
@@ -77,7 +79,6 @@
             <label for = "fvelocity">Final Velocity</label>
           </div>
         </div>
-
         <div id = "dragparameter">
           <h3>Drag Parameters</h3>
           <div>
@@ -91,13 +92,11 @@
               <option value = "aeropreset_ppball">Ping Pong Ball</option>
               <option value = "aeropreset_tennisball">Tennis Ball</option>
               <option value = "aeropreset_soccerball">Soccer Ball</option>
-              <option value = "aeropreset_paper plane">Paper Plane</option>
+              <option value = "aeropreset_paperplane">Paper Plane</option>
               <option value = "aeropreset_paperball">Paper Ball</option>
 
             </select>
-
           </div>
-
           <div>
             <input id = "bool_aerocustom" value = "bool_aerocustom" type = "radio" name = "aerobool">
             <label for = "bool_aerocustom">Custom Drag Parameters</label>
@@ -118,7 +117,6 @@
             <label for = "area">Cross-Sectional Area</label>
           </div>
         </div>
-
         <div id = "densityparameter">
           <h3>Density Parameters</h3>
           <div>
@@ -128,9 +126,9 @@
              
               <option value = "" disabled selected>Select a preset</option>
               <option value = "denpreset_air">Air</option>
+              <option value = "denpreset_vacuum">Vacuum</option>
               <option value = "denpreset_water">Water</option>
               <option value = "denpreset_oil">Oil</option>
-
             </select>
           </div>
           <div>
@@ -199,42 +197,28 @@
         density: "kg/m³"
       };
 
+      const decimals = {
+        ivelocity: 1,
+        iheight: 1,
+        iangle: 0,
+        gravity: 2,
+        distance: 1,
+        maxheight: 1,
+        time: 1,
+        fvelocity: 1,
+        mass: 3,
+        cd: 2,
+        area: 3,
+        density: 1
+      };
+
       document.querySelectorAll("input[type='range']").forEach(slider => {
         document.getElementById(slider.id + "_label").textContent = slider.value + " " + units[slider.id];
 
         slider.addEventListener("input", function() {
         document.getElementById(this.id + "_label").textContent = this.value + " " + units[this.id];
         });
-      });
-      
-      // 7. Validate form before submit
-      document.getElementById("parameters").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const depSelected = document.querySelector("input[name='depbool']:checked");
-        const aeroSelected = document.querySelector("input[name='aerobool']:checked");
-        const denSelected = document.querySelector("input[name='denbool']:checked");
-
-        const indepChecked = document.querySelectorAll("input[name='indepbool']:checked").length;
-
-        if (!depSelected) {
-          alert("Please select a dependent variable.");
-          return;
-        }
-        if (!aeroSelected) {
-          alert("Please select a drag parameter option.");
-          return;
-        }
-        if (!denSelected) {
-          alert("Please select a density parameter option.");
-          return;
-        }
-        if (indepChecked < 3) {
-          alert("Please select at least 3 of 4 independent variables.");
-          return;
-        }
-        console.log("Form submitted successfully");
-      });
+      });      
     
       const aeroPresets = {
         aeropreset_baseball: { mass: 0.145, cd: 0.35, area: 0.004 },
@@ -242,14 +226,15 @@
         aeropreset_ppball: { mass: 0.003, cd: 0.40, area: 0.001 },
         aeropreset_tennisball: { mass: 0.058, cd: 0.60, area: 0.003 },
         aeropreset_soccerball: { mass: 0.450, cd: 0.25, area: 0.038 },
-        "aeropreset_paper plane": { mass: 0.005, cd: 0.80, area: 0.015 },
+        aeropreset_paperplane: { mass: 0.005, cd: 0.80, area: 0.015 },
         aeropreset_paperball: { mass: 0.004, cd: 0.47, area: 0.002 }
       };
 
       const denPresets = {
-        denpreset_air: { density: 1.225 },
+        denpreset_air: { density: 1.2 },
         denpreset_water: { density: 1000 },
-        denpreset_oil: { density: 870 }
+        denpreset_oil: { density: 870 },
+        denpreset_vacuum: { density: 0.0001 },
       };
 
       document.getElementById("aeropreset").addEventListener("change", function() {
@@ -280,32 +265,6 @@
         }
       });
       
-      document.querySelectorAll("input[type='range']").forEach(slider => {
-        const label = document.getElementById(slider.id + "_label");
-        if (label) {
-          let val;
-          if (slider.id === "density") {
-            val = sliderToValue(slider.value, 1, 10000).toFixed(decimals["density"]);
-          } else {
-            val = parseFloat(slider.value).toFixed(decimals[slider.id]);
-          }
-          label.textContent = val + " " + units[slider.id];
-        }
-
-        slider.addEventListener("input", function() {
-          const label = document.getElementById(this.id + "_label");
-          if (label) {
-            let val;
-            if (this.id === "density") {
-              val = sliderToValue(this.value, 1, 10000).toFixed(decimals["density"]);
-            } else {
-              val = parseFloat(this.value).toFixed(decimals[this.id]);
-            }
-            label.textContent = val + " " + units[this.id];
-          }
-        });
-      });
-      
       document.getElementById("aeropreset").addEventListener("change", function() {
         const preset = aeroPresets[this.value];
         if (preset) {
@@ -322,10 +281,51 @@
       document.getElementById("denpreset").addEventListener("change", function() {
         const preset = denPresets[this.value];
         if (preset) {
-          const sliderVal = Math.round((Math.log(preset.density) - Math.log(1)) / (Math.log(10000) - Math.log(1)) * 100);
-          document.getElementById("density").value = sliderVal;
+          document.getElementById("density").value = preset.density;
           document.getElementById("density_label").textContent = parseFloat(preset.density).toFixed(decimals["density"]) + " " + units["density"];
         }
+      });
+
+      document.getElementById("parameters").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const depSelected = document.querySelector("input[name='depbool']:checked");
+        const aeroSelected = document.querySelector("input[name='aerobool']:checked");
+        const denSelected = document.querySelector("input[name='denbool']:checked");
+        const indepChecked = document.querySelectorAll("input[name='indepbool']:checked").length;
+
+        if (indepChecked < 3) { alert("Please select at least 3 of 4 independent variables."); return; }
+        if (indepChecked === 3 && !depSelected) { alert("Please select a dependent variable when using 3 independent variables."); return; }
+        if (!aeroSelected) { alert("Please select a drag parameter option."); return; }
+        if (!denSelected) { alert("Please select a density parameter option."); return; }
+
+        const sliders = ["ivelocity", "iheight", "iangle", "gravity", "distance", "maxheight", "time", "fvelocity"];
+        const always = ["mass", "cd", "area", "density"];
+        const data = {};
+
+        sliders.forEach(id => {
+          const el = document.getElementById(id);
+          data[id] = el.disabled ? "" : el.value;
+        });
+
+        always.forEach(id => {
+          data[id] = document.getElementById(id).value;
+        });
+
+        data["dep"] = depSelected?.value ?? "";
+        data["aeropreset"] = document.getElementById("aeropreset").value;
+        data["denpreset"] = document.getElementById("denpreset").value;
+
+        fetch("/run", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        }).then(res => res.json()).then(result => {
+          localStorage.setItem("simResult", JSON.stringify(result));
+          window.location.href = "results.html";
+        }).catch(err => {
+          alert("Error: " + err);
+        });
       });
     </script>
 </body>

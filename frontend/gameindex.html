@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "styleindex.css">
+    <link rel = "stylesheet" href = "stylegameindex.css">
+    <title>Game — PMAD Simulator</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href = "index.html"><img src = "images/logo.png" id = "logo-img"></a></li>
+            <li><a href = "learn.html" class = "hyperlinks">Learn</a></li>
+            <li><a href = "gameindex.html" class = "hyperlinks">Game</a></li>
+            <li><a href = "sim.html" class = "hyperlinks">Simulation</a></li>
+            <li><a href = "features.html" class = "hyperlinks">Features</a></li>
+            <li><a href = "guide.html" class = "hyperlinks">Guide</a></li>
+        </ul>
+    </nav>
+    <div id = "main">
+        <img src = "images/gamedemo.png" id = "img-main" alt = "Game demo">
+        <div id = "text">
+            <h1 id = "title">Trajectory<br>Challenge</h1>
+            <h2 id = "subtitle">Can you find the missing variable?</h2>
+            <p id = "para">In this challenge, you are given 3 launch variables and a target zone. You are now tasked with applying your knowledge of projectile motion to a real scenario, tweak the missing variable to hit the target.</p>
+        </div>
+    </div>
+    <a href = "game.html" id = "run-game">
+        <button id = "button">Run Game</button>
+        <div id = "privacy">
+            <img src = "images/shield2.png" id = "shield" alt = "Privacy shield">
+            <p id = "privacy-text">No sign-up required. Free to use.</p>
+        </div>
+    </a>
+    <div class = "list">
+        <div class = "item">
+            <div class = "item-num">01</div>
+            <div class = "item-text">
+                <h2 class = "item-title">Random Challenge</h2>
+                <p class = "item-para">The simulator randomly generates three launch parameters — initial velocity, initial height, launch angle, or gravity — along with random drag and density presets.</p>
+            </div>
+        </div>
+        <div class = "divider"></div>
+        <div class = "item">
+            <div class = "item-num">02</div>
+            <div class = "item-text">
+                <h2 class = "item-title">Target Zone</h2>
+                <p class = "item-para">Either a landing distance or peak height is chosen as the target. A shaded zone on the graph shows the ±2% band you need to land within.</p>
+            </div>
+        </div>
+        <div class = "divider"></div>
+        <div class = "item">
+            <div class = "item-num">03</div>
+            <div class = "item-text">
+                <h2 class = "item-title">Your Input</h2>
+                <p class = "item-para">Three of the four launch parameters are shown and locked. One is hidden — that is your slider to control. Adjust it and click Launch to run your attempt.</p>
+            </div>
+        </div>
+        <div class = "divider"></div>
+        <div class = "item">
+            <div class = "item-num">04</div>
+            <div class = "item-text">
+                <h2 class = "item-title">Iterate</h2>
+                <p class = "item-para">Each attempt shows your trajectory on the graph alongside the target zone. If you miss, reiterate and try again. Your previous value is kept as the starting point.</p>
+            </div>
+        </div>
+        <div class = "divider"></div>
+        <div class = "item">
+            <div class = "item-num">05</div>
+            <div class = "item-text">
+                <h2 class = "item-title">New Challenge</h2>
+                <p class = "item-para">Once you succeed or want a fresh start, hit New Challenge. A new trajectory is generated with a new challenge.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

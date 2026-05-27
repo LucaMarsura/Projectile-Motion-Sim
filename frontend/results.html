@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <link rel = "stylesheet" href = "style.css">
+    <link href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display = swap" rel = "stylesheet">
+    <title>Simulation Results</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html" id="homescreen-hyperlink"><img src="images/logo.png" id="logo-img"></a></li>
+            <li><a href="learn.html" class="hyperlinks">Learn</a></li>
+            <li><a href="gameindex.html" class="hyperlinks">Game</a></li>
+            <li><a href="sim.html" id="simulation-hyperlink" class="hyperlinks">Simulation</a></li>
+            <li><a href="features.html" class="hyperlinks">Features</a></li>
+            <li><a href="guide.html" class="hyperlinks">Guide</a></li>
+        </ul>
+    </nav>
+    <div id = "results-container">
+        <h1 id = "results-title">Simulation Results</h1>
+        <div id = "error-block" style = "display:none;">
+            <p id = "error-msg"></p>
+        </div>
+        <div id = "results-block">
+            <div id = "prints-block"></div>
+            <div id = "graphs-block">
+                <img id = "graph1" alt = "Trajectory Graph">
+                <img id = "graph2" alt = "Energy Graph">
+                <a href = "sim.html" id = "new-sim-btn">Run New Simulation</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const result = JSON.parse(localStorage.getItem("simResult"));
+
+        if (!result) {
+            document.getElementById("error-block").style.display = "block";
+            document.getElementById("error-msg").textContent = "No results found. Please run the simulation first.";
+            document.getElementById("results-block").style.display = "none";
+
+        } else if (result.error) {
+            document.getElementById("error-block").style.display = "block";
+            document.getElementById("error-msg").textContent = result.error;
+            document.getElementById("results-block").style.display = "none";
+
+        } else {
+            const printsBlock = document.getElementById("prints-block");
+            const subBreaks = [
+                "Total Energy at Peak Height:",
+                "Final Total Energy:"
+            ];
+
+            result.prints.forEach(line => {
+                const p = document.createElement("p");
+                p.textContent = line;
+
+                if (line === "Trajectory Data:" || line === "Parameters:" || line === "Energy Analysis:") {
+                    const hr = document.createElement("hr");
+                    hr.style.border = "none";
+                    hr.style.borderTop = "1.5px solid #e5e5e5";
+                    hr.style.margin = "14px 0 10px 0";
+                    printsBlock.appendChild(hr);
+                    p.style.fontWeight = "600";
+                    p.style.color = "#0b5190";
+                    p.style.fontSize = "14px";
+                }
+
+                if (subBreaks.some(s => line.startsWith(s))) {
+                    const gap = document.createElement("div");
+                    gap.style.height = "10px";
+                    printsBlock.appendChild(gap);
+                }
+                
+                printsBlock.appendChild(p);
+            });
+            document.getElementById("graph1").src = "data:image/png;base64," + result.graph1;
+            document.getElementById("graph2").src = "data:image/png;base64," + result.graph2;
+        }
+    </script>
+</body>
+</html>

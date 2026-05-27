@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleindex.css">
+    <link rel="stylesheet" href="stylelearn.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <title>Learn — Physics Simulation</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html" id="homescreen-hyperlink"><img src="images/logo.png" id="logo-img"></a></li>
+            <li><a href="learn.html" class="hyperlinks">Learn</a></li>
+            <li><a href="gameindex.html" class="hyperlinks">Game</a></li>
+            <li><a href="sim.html" id="simulation-hyperlink" class="hyperlinks">Simulation</a></li>
+            <li><a href="features.html" class="hyperlinks">Features</a></li>
+            <li><a href="guide.html" class="hyperlinks">Guide</a></li>
+        </ul>
+    </nav>
+    <div id="learn-hero">
+        <h1 id="learn-hero-title">The Physics</h1>
+        <p id="learn-hero-sub">Understanding projectile motion and drag.</p>
+    </div>
+    <div class="learn-content">
+        <div class="learn-section">
+            <h2 class="learn-section-title">Ideal Projectile Motion</h2>
+            <p class="learn-para">Fundamentally, projectile motion studies the motion of objects being influenced only by the force of gravity, and can be governed by the three kinematic equations:</p>
+            <div class="eq-block">
+                <div class="eq">\( v = v_i + at \)</div>
+                <div class="eq">\( \Delta x = v_i t + \tfrac{1}{2}at^2 \)</div>
+                <div class="eq">\( v^2 = v_i^2 + 2a\Delta x \)</div>
+            </div>
+            <p class="learn-para">Projectile motion defines a constant horizontal velocity component and a vertical velocity component accelerating at the linear rate of ambient gravity \(-g\), independent of mass:</p>
+            <div class="eq-block two-col">
+                <div class="eq-group">
+                    <div class="eq-label">Vertical</div>
+                    <div class="eq">\( F_{net,y} = -F_g = -mg \)</div>
+                    <div class="eq">\( a_y = -g \)</div>
+                </div>
+                <div class="eq-group">
+                    <div class="eq-label">Horizontal</div>
+                    <div class="eq">\( F_{net,x} = 0 \)</div>
+                    <div class="eq">\( a_x = 0 \)</div>
+                </div>
+            </div>
+        </div>
+        <div class="learn-divider"></div>
+        <div class="learn-section">
+            <h2 class="learn-section-title">The Drag Force</h2>
+            <p class="learn-para">However, these relationships do not work in practice due to the nonlinear force of drag:</p>
+            <div class="eq-block">
+                <div class="eq">\( F_d = \tfrac{1}{2} \rho C_d A v^2 \)</div>
+            </div>
+            <p class="learn-para">This means projectiles stray from their parabolic trajectories, especially when experiencing higher drag forces due to larger cross-sectional areas, higher drag coefficients, faster velocities, or denser fluids.</p>
+        </div>
+        <div class="learn-divider"></div>
+        <div class="learn-section">
+            <h2 class="learn-section-title">Motion with Drag</h2>
+            <p class="learn-para">When drag is introduced, the equations of motion become more complex:</p>
+            <div class="eq-block two-col">
+                <div class="eq-group">
+                    <div class="eq-label">Vertical</div>
+                    <div class="eq">\( F_{net,y} = -\left(mg + \tfrac{1}{2}\rho C_d A v_y^2\right) \)</div>
+                    <div class="eq">\( a_y = -\dfrac{mg + \tfrac{1}{2}\rho C_d A v_y^2}{m} \)</div>
+                </div>
+                <div class="eq-group">
+                    <div class="eq-label">Horizontal</div>
+                    <div class="eq">\( F_{net,x} = -\tfrac{1}{2}\rho C_d A v_x^2 \)</div>
+                    <div class="eq">\( a_x = -\dfrac{\tfrac{1}{2}\rho C_d A v_x^2}{m} \)</div>
+                </div>
+            </div>
+            <p class="learn-para">Note that mass no longer cancels, due to the added drag force term. Acceleration is also now variable, as it depends on the instantaneous velocity.</p>
+        </div>
+        <div class="learn-divider"></div>
+        <div class="learn-section">
+            <h2 class="learn-section-title">How the PMAD Simulator Works</h2>
+            <p class="learn-para">This is the fundamental function of the PMAD simulator — it models velocity, position, and time values to compute instantaneous forces acting on the projectile and its acceleration, to correctly map out its trajectory. Using this simulation, you can graphically understand how drag influences projectile motion. Use the density presets to see how denser fluids cause higher drag, and how the vacuum preset shows perfect projectile motion.</p>
+        </div>
+    </div>
+</body>
+</html>
