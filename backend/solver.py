@@ -1,6 +1,6 @@
 from simulation import simulation
 
-def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_masearch_stepheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, allow_timestamps, depvariable):
+def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, allow_timestamps, depvariable):
     uncertainty = 1
     iterations = 0
 
