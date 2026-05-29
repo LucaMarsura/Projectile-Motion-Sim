@@ -1,11 +1,13 @@
-import sys, json, random, base64
-sys.path.append("backend")
+import sys
+import json
+import random
+import base64
 from io import BytesIO
 from simulation import simulation
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
+sys.path.append("backend")
 
 drag_presets = {
     "aeropreset_baseball":    {"mass": 0.145,  "cd": 0.35,  "area": 0.0042},
@@ -34,20 +36,18 @@ density_presets = {
     "denpreset_moltenmetal": {"density": 6980}
 }
 
-
+    #parameter selection
 def select_aero():
     return random.choices(
         ["aeropreset_baseball", "aeropreset_football", "aeropreset_ppball", "aeropreset_soccerball", "aeropreset_tennisball", "aeropreset_paperplane", "aeropreset_paperball", "aeropreset_golfball", "aeropreset_basketball", "aeropreset_bowlingball", "aeropreset_frisbee", "aeropreset_arrow", "aeropreset_spear", "aeropreset_shuttlecock"],
         weights=[12, 8, 6, 8, 8, 4, 4, 10, 8, 6, 8, 8, 6, 10]
     )[0]
 
-
 def select_den():
     return random.choices(
         ["denpreset_air", "denpreset_vacuum", "denpreset_water", "denpreset_oil", "denpreset_highaltair", "denpreset_syrup", "denpreset_moltenmetal"],
         weights=[70, 10, 5, 5, 7, 2, 1]
     )[0]
-
 
 def pick_variables():
     true_iheight   = round(random.uniform(0, 20), 1)
@@ -56,9 +56,7 @@ def pick_variables():
     true_ivelocity = round(random.uniform(5, 40), 1)
     return true_ivelocity, true_iheight, true_iangle, true_gravity
 
-
 def create_graph(gametype, target, list_height=None, list_distance=None):
-
     fig, ax = plt.subplots(figsize=(6, 4))
     deviation = target * 0.02
 
@@ -92,9 +90,7 @@ def create_graph(gametype, target, list_height=None, list_distance=None):
 
     return graph
 
-
 def set_game(body):
-
     drag_selected    = select_aero()
     density_selected = select_den()
     target_indep     = random.choice(["ivelocity", "iheight", "iangle", "gravity"])
@@ -145,9 +141,7 @@ def set_game(body):
         "density":    density["density"]
     }))
 
-
 def run_game(body):
-
     target_indep = body["hidden_var"]
     attempt      = float(body["attempt_value"])
     given_indep  = body["known_vars"]
@@ -167,7 +161,6 @@ def run_game(body):
     graph     = create_graph(gametype, target, list_height, list_distance)
 
     print(json.dumps({"graph": graph, "success": success, "deviation": deviation}))
-
 
 data = json.loads(sys.stdin.read())
 

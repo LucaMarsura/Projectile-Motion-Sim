@@ -4,7 +4,6 @@ from io import BytesIO
 
 
 def graph_trajectory(list_distance, list_height):
-
     fig, ax = plt.subplots()
 
     ax.plot(list_distance, list_height)

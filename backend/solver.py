@@ -2,7 +2,6 @@ from simulation import simulation
 
 
 def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, allow_timestamps, depvariable):
-
     uncertainty = 1
     iterations  = 0
 
@@ -15,6 +14,8 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
             while abs(uncertainty) > 0.001 and iterations < 100:
                 list_height, list_distance, list_time, list_velocity, list_angle = simulation(experimental_ivelocity, true_iheight, true_iangle, true_gravity, true_mass, true_density, true_cd, true_area)
                 trial_distance = max(list_distance)
+
+                #iterative search, alter experimental launch parameter based on relation between true result and calculated result
                 if trial_distance > true_distance:
                     experimental_ivelocity -= search_step
                 elif trial_distance < true_distance:

@@ -5,9 +5,8 @@ from solver import iterative_solve
 from energyanalysis import energy
 from trajectorygraphing import graph_trajectory
 
-
 def main():
-
+    #inputs
     data = json.loads(sys.stdin.read())
 
     true_ivelocity = float(data["ivelocity"]) if data["ivelocity"] != "" else ""
@@ -46,6 +45,7 @@ def main():
         "denpreset_moltenmetal": {"density": 6980}
     }
 
+    #preset selection
     drag_selected    = data.get("aeropreset", "")
     density_selected = data.get("denpreset", "")
 
@@ -69,15 +69,24 @@ def main():
     nindep      = 0
     ndep        = 0
 
-    if bool(true_ivelocity): nindep += 1
-    if bool(true_iheight):   nindep += 1
-    if bool(true_iangle):    nindep += 1
-    if bool(true_gravity):   nindep += 1
+    #missing/given variables
+    if bool(true_ivelocity):
+        nindep += 1
+    if bool(true_iheight):
+        nindep += 1
+    if bool(true_iangle):
+        nindep += 1
+    if bool(true_gravity):
+        nindep += 1
 
-    if bool(true_distance):  ndep += 1; depvariable = "distance"
-    if bool(true_maxheight): ndep += 1; depvariable = "maxheight"
-    if bool(true_time):      ndep += 1; depvariable = "time"
-    if bool(true_fvelocity): ndep += 1; depvariable = "fvelocity"
+    if bool(true_distance):
+        ndep += 1; depvariable = "distance"
+    if bool(true_maxheight):
+        ndep += 1; depvariable = "maxheight"
+    if bool(true_time):
+        ndep += 1; depvariable = "time"
+    if bool(true_fvelocity):
+        ndep += 1; depvariable = "fvelocity"
 
     if nindep < 3:
         print(json.dumps({"error": "Insufficient data: provide at least 3 independent variables.", "prints": [], "graph1": "", "graph2": ""}))
@@ -101,15 +110,17 @@ def main():
     else:
         result_ivelocity, result_iheight, result_iangle, result_gravity, uncertainty, iterations = iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, False, depvariable)
 
+    #final sim with all indep parameters
     list_height, list_distance, list_time, list_velocity, list_angle = simulation(result_ivelocity, result_iheight, result_iangle, result_gravity, true_mass, true_density, true_cd, true_area)
 
+    #output definition
     result_distance  = list_distance[-1]
     result_maxheight = max(list_height)
     result_time      = list_time[-1]
     result_fvelocity = list_velocity[-1]
     result_fangle    = list_angle[-1]
 
-    traj_graph           = graph_trajectory(list_distance, list_height)
+    traj_graph = graph_trajectory(list_distance, list_height)
     txt_energy, graph_energy = energy(list_time, list_distance, list_height, list_velocity, true_mass, result_gravity)
 
     txt_main = [
@@ -129,6 +140,7 @@ def main():
         f"Ambient Gravity: {round(result_gravity, 3)} meters/second squared",
     ]
 
+    #outputs
     print(json.dumps({"prints": txt_main + txt_energy, "graph1": traj_graph, "graph2": graph_energy}))
 
 
