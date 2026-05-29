@@ -394,3 +394,11 @@ a:link, a:visited, a:hover, a:active {
         margin-left: 16px;
     }
 }
+
+a#run-link, a#run-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+}
