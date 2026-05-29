@@ -98,9 +98,9 @@
     <script>
         let gameState = null;
         const sliderConfig = {
-            ivelocity: { min: 0,   max: 40,  step: 0.01,  unit: "m/s",  label: "Initial Velocity" },
-            iheight:   { min: 0,   max: 20,  step: 0.01,  unit: "m",    label: "Initial Height" },
-            iangle:    { min: -90, max: 90,  step: 0.01,    unit: "°",    label: "Launch Angle" },
+            ivelocity: { min: 0,   max: 40,  step: 0.01, unit: "m/s",  label: "Initial Velocity" },
+            iheight:   { min: 0,   max: 20,  step: 0.01, unit: "m",    label: "Initial Height" },
+            iangle:    { min: -90, max: 90,  step: 0.01, unit: "°",    label: "Launch Angle" },
             gravity:   { min: 0,   max: 20,  step: 0.01, unit: "m/s²", label: "Ambient Gravity" }
         };
         const aeroLabels = {
@@ -137,7 +137,7 @@
             allVars.forEach(v => {
                 const slider = document.getElementById(v);
                 const label  = document.getElementById(v + "_label");
-                if (v === gameState.indep_unknown) {
+                if (v === gameState.hidden_var) {
                     const cfg = sliderConfig[v];
                     slider.min      = cfg.min;
                     slider.max      = cfg.max;
@@ -150,8 +150,8 @@
                     };
                 } else {
                     slider.disabled   = true;
-                    slider.value      = gameState.indep_given[v];
-                    label.textContent = parseFloat(gameState.indep_given[v]).toFixed(2) + " " + units[v];
+                    slider.value      = gameState.known_vars[v];
+                    label.textContent = parseFloat(gameState.known_vars[v]).toFixed(2) + " " + units[v];
                 }
             });
             document.getElementById("locked-aeropreset").textContent = aeroLabels[gameState.aeropreset] || gameState.aeropreset;
@@ -170,15 +170,15 @@
             document.getElementById("graph-placeholder").style.display = "flex";
             document.getElementById("graph-loading").textContent = "Running simulation...";
             document.getElementById("graph-img").style.display = "none";
-            const slider  = document.getElementById(gameState.indep_unknown);
+            const slider  = document.getElementById(gameState.hidden_var);
             const attempt = parseFloat(slider.value);
             const res = await fetch("/game_run", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    indep_unknown:    gameState.indep_unknown,
+                    hidden_var:    gameState.hidden_var,
                     attempt_value: attempt,
-                    indep_given:    gameState.indep_given,
+                    known_vars:    gameState.known_vars,
                     target:        gameState.target,
                     gametype:      gameState.gametype,
                     aeropreset:    gameState.aeropreset,
@@ -203,8 +203,8 @@
         function newGame() {
             const lastAttempt = gameState ? gameState.lastAttempt ?? null : null;
             const prevState   = gameState ? {
-                indep_given: gameState.indep_given,
-                indep_unknown: gameState.indep_unknown,
+                known_vars: gameState.known_vars,
+                hidden_var: gameState.hidden_var,
                 aeropreset: gameState.aeropreset,
                 denpreset:  gameState.denpreset,
                 gametype:   gameState.gametype

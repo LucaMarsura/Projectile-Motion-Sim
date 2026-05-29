@@ -59,16 +59,16 @@ def main():
         true_area = 0.00126
     if not bool(true_mass):
         true_mass = 0.0027
-    if bool(true_ivelocity):
+    if true_ivelocity != "":
         result_ivelocity = true_ivelocity
         nindependent += 1
-    if bool(true_iheight):
+    if true_iheight != "":
         result_iheight = true_iheight
         nindependent += 1
-    if bool(true_iangle):
+    if true_iangle != "":
         result_iangle = true_iangle
         nindependent += 1
-    if bool(true_gravity):
+    if true_gravity != "":
         result_gravity = true_gravity
         nindependent += 1
     if bool(true_distance):
@@ -93,14 +93,17 @@ def main():
     elif nindependent == 3 and ndependent == 0:
         print(json.dumps({"error": "Insufficient data: provide at least 1 dependent variable.", "prints": [], "graph1": "", "graph2": ""}))
         return
-    elif ndependent == 1 and not bool(true_gravity) and bool(true_fvelocity):
+    elif ndependent == 1 and bool(true_fvelocity) and bool(true_iangle):
+        print(json.dumps({"error": "Specific case: missing variables cannot be inferred.", "prints": [], "graph1": "", "graph2": ""}))
+        return
+    elif ndependent == 1 and bool(true_fvelocity) and bool(true_gravity):
         print(json.dumps({"error": "Specific case: missing variables cannot be inferred.", "prints": [], "graph1": "", "graph2": ""}))
         return
     elif bool(true_fvelocity) and bool(true_ivelocity):
         if true_fvelocity > true_ivelocity:
             print(json.dumps({"error": "Impossible scenario: total velocity cannot increase during projectile motion.", "prints": [], "graph1": "", "graph2": ""}))
             return
-    elif nindependent == 4:
+    if nindependent == 4:
         result_ivelocity = true_ivelocity
         result_iheight = true_iheight
         result_iangle = true_iangle
