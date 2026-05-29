@@ -2,164 +2,8 @@ body {
     font-family: "Inter", sans-serif;
     background-color: #f5f5f5;
     color: #e5e5e5;
-}
-
-nav {
-    border-bottom: 3px solid #36454f;
-    background-color: #0b5190;
-    padding: 0 10px 0 0;
-    margin: 0;
-    overflow: hidden;
-}
-
-body {
     margin: 0;
     padding: 0;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 66px;
-}
-
-ul li:first-child {
-    margin-right: auto;
-}
-
-#logo-img {
-    height: 35px;
-    margin: 5px;
-    margin-left: 15px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-
-a:link, a:visited, a:hover, a:active {
-    color: #f5f5f5;
-    margin: 5px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.hyperlinks {
-    float: right;
-    text-align: right;
-}
-
-#title {
-    font-weight: 800;
-    font-size: 44px;
-    margin: 18px;
-    letter-spacing: -0.03em;
-    line-height: 0.96;
-    max-width: 100%;
-}
-
-#subtitle {
-    font-weight: 700;
-    font-size: 24px;
-    margin: 6px;
-    margin-left: 12px;
-    letter-spacing: -0.03em;
-    line-height: 0.96;
-    max-width: 100%;
-}
-
-#total {
-    background-color: #0b5190;
-    margin: 15px;
-    border-radius: 20px;
-    padding: 15px;
-    padding-bottom: 45px;
-}
-
-#indepparameter {
-    width: 47%;
-    float: left;
-    margin: 10px;
-    margin-top: 0px;
-}
-
-#depparameter {
-    width: 47%;
-    float: left;
-    margin: 10px;
-}
-
-#dragparameter {
-    width: 47%;
-    float: left;
-    margin: 10px;
-}
-
-#densityparameter {
-    width: 47%;
-    float: left;
-    margin: 10px;
-}
-
-#run {
-    width: 47%;
-    margin: 10px;
-    margin-top: 20px;
-    background-color: #e5e5e5;
-    height: 35px;
-    border-radius: 12px;
-    cursor: pointer;
-    color: #0b5190;
-    font-weight: 700;
-    font-size: 14px;
-    font-family: "Inter", sans-serif;
-    border: none;
-}
-
-#run:hover {
-    background-color: #d0d0d0;
-}
-
-span {
-    display: inline-block;
-    min-width: 80px;
-    height: 20px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 12px;
-    background-color: #e5e5e5;
-    color: #0b5190;
-    border-radius: 6px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 4px;
-    padding-right: 4px;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
-    white-space: nowrap;
-}
-
-#indepparameter div,
-#depparameter div,
-#dragparameter div,
-#densityparameter div {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: nowrap;
-}
-
-#indepparameter label,
-#depparameter label,
-#dragparameter label,
-#densityparameter label {
-    white-space: nowrap;
-    font-size: 13px;
 }
 
 #results-container {
@@ -234,53 +78,16 @@ span {
     text-decoration: none;
     margin-top: 4px;
     width: 100%;
-    align-self: stretch;
     text-align: center;
     box-sizing: border-box;
 }
 
 #new-sim-btn:hover {
     background-color: #e0e0e0;
-    color: #0b5190;
 }
 
 @media (max-width: 700px) {
-    #indepparameter {
-        width: 94%;
-    }
-
-    #depparameter {
-        width: 94%;
-    }
-
-    #dragparameter {
-        width: 94%;
-    }
-
-    #densityparameter {
-        width: 94%;
-    }
-
-    #run {
-        width: 94%;
-    }
-
     #results-block {
         flex-direction: column;
-    }
-
-    #total {
-        margin: 8px;
-        padding: 10px;
-        padding-bottom: 30px;
-    }
-
-    #title {
-        font-size: 28px;
-        margin: 12px;
-    }
-
-    #subtitle {
-        font-size: 18px;
     }
 }

@@ -2,86 +2,16 @@ body {
     font-family: "Inter", sans-serif;
     background-color: #f5f5f5;
     color: #36454f;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-nav {
-    border-bottom: 3px solid #36454f;
-    background-color: #0b5190;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    overflow: hidden;
-}
-
-ul {
-    list-style-type: none;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 66px;
-}
-
-ul li:first-child {
-    margin-right: auto;
-}
-
-#logo-img {
-    height: 35px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 15px;
-    margin-right: 5px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-
-a:link, a:visited, a:hover, a:active {
-    color: #f5f5f5;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.hyperlinks {
-    float: right;
-    text-align: right;
+    margin: 0;
+    padding: 0;
 }
 
 #main {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 60px;
-    padding-right: 60px;
+    padding: 40px 60px;
     gap: 40px;
-    border-bottom: 1.5px solid #e5e5e5;
 }
 
 #img-main {
@@ -89,69 +19,56 @@ a:link, a:visited, a:hover, a:active {
     flex-shrink: 0;
     border-radius: 12px;
     object-fit: contain;
-    border: 1.5px solid #e5e5e5;
 }
 
-#text {
+#hero-text {
     flex: 1;
 }
 
-#title {
+#hero-title {
     font-size: 48px;
     font-weight: 800;
-    margin-top: 0;
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0 0 10px;
     line-height: 1.1;
     color: #0f1728;
 }
 
-#subtitle {
+#hero-subtitle {
     font-size: 22px;
     font-weight: 500;
     color: #6b7280;
-    margin-top: 0;
-    margin-bottom: 16px;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0 0 16px;
     line-height: 1.4;
 }
 
-#para {
+#hero-desc {
     font-size: 16px;
     font-weight: 400;
     color: #36454f;
     line-height: 1.75;
 }
 
-#run-link {
+#sim-cta,
+#game-cta {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 10px 0;
     text-decoration: none;
     width: 100%;
 }
 
-#run-game {
+a#sim-cta,
+a#game-cta {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-right: 0;
-    text-decoration: none;
     width: 100%;
+    text-decoration: none;
 }
 
-#button {
+#cta-button {
     background-color: #0b5190;
     width: 40%;
     height: 40px;
@@ -163,15 +80,14 @@ a:link, a:visited, a:hover, a:active {
     font-weight: 600;
     font-family: "Inter", sans-serif;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
-#button:hover {
+#cta-button:hover {
     background-color: #094477;
 }
 
-#privacy {
+#cta-privacy {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -179,82 +95,64 @@ a:link, a:visited, a:hover, a:active {
     width: 100%;
 }
 
-#shield {
+#cta-shield {
     height: 14px;
 }
 
-#privacy-text {
+#cta-privacy-text {
     font-size: 12px;
     font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
     color: #6b7280;
 }
 
-.features {
+.feature-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 40px 30px;
     align-items: stretch;
 }
 
-.feature {
+.feature-card {
     display: flex;
     flex-direction: column;
     border: 1.5px solid #0b5190;
     border-radius: 12px;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 16px;
     background: #fff;
 }
 
-.feature-header {
+.feature-card-header {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 6px;
 }
 
-.feature-icon {
+.feature-card-icon {
     height: 28px;
     width: 28px;
     flex-shrink: 0;
 }
 
-.feature-title {
+.feature-card-title {
     font-size: 14px;
     font-weight: 800;
     color: #0b5190;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
 }
 
-.feature-para {
+.feature-card-desc {
     font-size: 12px;
     font-weight: 500;
     color: #36454f;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
     line-height: 1.6;
 }
 
 .list {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 60px;
-    padding-right: 30px;
+    padding: 0 30px 0 60px;
     max-width: 900px;
 }
 
@@ -262,10 +160,7 @@ a:link, a:visited, a:hover, a:active {
     display: flex;
     align-items: flex-start;
     gap: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 40px 0;
 }
 
 .item-num {
@@ -286,10 +181,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 24px;
     font-weight: 800;
     color: #0b5190;
-    margin-top: 0;
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0 0 10px;
     letter-spacing: -0.02em;
 }
 
@@ -297,10 +189,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 16px;
     font-weight: 400;
     color: #36454f;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
     line-height: 1.75;
     max-width: 620px;
 }
@@ -308,14 +197,11 @@ a:link, a:visited, a:hover, a:active {
 .divider {
     height: 1.5px;
     background-color: #e5e5e5;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 60px;
-    margin-right: 0;
+    margin: 0 0 0 60px;
 }
 
 @media (max-width: 900px) {
-    .features {
+    .feature-cards {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -323,10 +209,7 @@ a:link, a:visited, a:hover, a:active {
 @media (max-width: 600px) {
     #main {
         flex-direction: column;
-        padding-top: 24px;
-        padding-bottom: 24px;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding: 24px 16px;
         gap: 20px;
     }
 
@@ -334,47 +217,39 @@ a:link, a:visited, a:hover, a:active {
         display: none;
     }
 
-    #title {
+    #hero-title {
         font-size: 36px;
     }
 
-    #subtitle {
+    #hero-subtitle {
         font-size: 18px;
     }
 
-    #button {
+    #cta-button {
         width: 80%;
     }
 
-    #run-link {
-        padding-left: 16px;
-        padding-right: 16px;
+    #sim-cta,
+    #game-cta {
+        padding: 0 16px;
     }
 
-    #run-game {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .features {
+    .feature-cards {
         grid-template-columns: 1fr;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding: 16px;
     }
 
-    .feature-icon {
+    .feature-card-icon {
         display: none;
     }
 
     .list {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding: 0 16px;
     }
 
     .item {
         gap: 20px;
-        padding-top: 24px;
-        padding-bottom: 24px;
+        padding: 24px 0;
     }
 
     .item-num {
@@ -393,12 +268,4 @@ a:link, a:visited, a:hover, a:active {
     .divider {
         margin-left: 16px;
     }
-}
-
-a#run-link, a#run-game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    text-decoration: none;
 }

@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="styleindex.css">
     <link rel="stylesheet" href="stylelearn.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
     <title>Learn — Physics Simulation</title>
 </head>
 <body>
+
     <nav>
         <ul>
-            <li><a href="index.html" id="homescreen-hyperlink"><img src="images/logo.png" id="logo-img"></a></li>
-            <li><a href="learn.html" class="hyperlinks">Learn</a></li>
-            <li><a href="gameindex.html" class="hyperlinks">Game</a></li>
-            <li><a href="sim.html" id="simulation-hyperlink" class="hyperlinks">Simulation</a></li>
-            <li><a href="features.html" class="hyperlinks">Features</a></li>
-            <li><a href="guide.html" class="hyperlinks">Guide</a></li>
+            <li><a href="index.html"><img src="images/logo.png" id="nav-logo" alt="Logo"></a></li>
+            <li><a href="learn.html" class="nav-link">Learn</a></li>
+            <li><a href="gameindex.html" class="nav-link">Game</a></li>
+            <li><a href="sim_new.html" class="nav-link">Simulation</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
         </ul>
     </nav>
+
     <div id="learn-hero">
         <h1 id="learn-hero-title">The Physics</h1>
         <p id="learn-hero-sub">Understanding projectile motion and drag.</p>
     </div>
+
     <div class="learn-content">
         <div class="learn-section">
             <h2 class="learn-section-title">Ideal Projectile Motion</h2>
@@ -79,5 +82,6 @@
             <p class="learn-para">This is the fundamental function of the PMAD simulator — it models velocity, position, and time values to compute instantaneous forces acting on the projectile and its acceleration, to correctly map out its trajectory. Using this simulation, you can graphically understand how drag influences projectile motion. Use the density presets to see how denser fluids cause higher drag, and how the vacuum preset shows perfect projectile motion.</p>
         </div>
     </div>
+
 </body>
 </html>

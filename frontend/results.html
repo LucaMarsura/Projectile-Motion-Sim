@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-    <link rel = "stylesheet" href = "style.css">
-    <link href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display = swap" rel = "stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <title>Simulation Results</title>
 </head>
 <body>
+
     <nav>
         <ul>
-            <li><a href="index.html" id="homescreen-hyperlink"><img src="images/logo.png" id="logo-img"></a></li>
-            <li><a href="learn.html" class="hyperlinks">Learn</a></li>
-            <li><a href="gameindex.html" class="hyperlinks">Game</a></li>
-            <li><a href="sim.html" id="simulation-hyperlink" class="hyperlinks">Simulation</a></li>
-            <li><a href="features.html" class="hyperlinks">Features</a></li>
-            <li><a href="guide.html" class="hyperlinks">Guide</a></li>
+            <li><a href="index.html"><img src="images/logo.png" id="nav-logo" alt="Logo"></a></li>
+            <li><a href="learn.html" class="nav-link">Learn</a></li>
+            <li><a href="gameindex.html" class="nav-link">Game</a></li>
+            <li><a href="sim_new.html" class="nav-link">Simulation</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
         </ul>
     </nav>
-    <div id = "results-container">
-        <h1 id = "results-title">Simulation Results</h1>
-        <div id = "error-block" style = "display:none;">
-            <p id = "error-msg"></p>
+
+    <div id="results-container">
+        <h1 id="results-title">Simulation Results</h1>
+        <div id="error-block" style="display:none;">
+            <p id="error-msg"></p>
         </div>
-        <div id = "results-block">
-            <div id = "prints-block"></div>
-            <div id = "graphs-block">
-                <img id = "graph1" alt = "Trajectory Graph">
-                <img id = "graph2" alt = "Energy Graph">
-                <a href = "sim.html" id = "new-sim-btn">Run New Simulation</a>
+        <div id="results-block">
+            <div id="prints-block"></div>
+            <div id="graphs-block">
+                <img id="graph1" alt="Trajectory Graph">
+                <img id="graph2" alt="Energy Graph">
+                <a href="sim_new.html" id="new-sim-btn">Run New Simulation</a>
             </div>
         </div>
     </div>
+
     <script>
         const result = JSON.parse(localStorage.getItem("simResult"));
 
@@ -72,12 +75,13 @@
                     gap.style.height = "10px";
                     printsBlock.appendChild(gap);
                 }
-                
+
                 printsBlock.appendChild(p);
             });
             document.getElementById("graph1").src = "data:image/png;base64," + result.graph1;
             document.getElementById("graph2").src = "data:image/png;base64," + result.graph2;
         }
     </script>
+
 </body>
 </html>

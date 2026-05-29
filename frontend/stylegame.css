@@ -1,112 +1,210 @@
-#total {
-    background-color: #0b5190;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: 20px;
-    padding-top: 15px;
-    padding-bottom: 45px;
-    padding-left: 15px;
-    padding-right: 15px;
+body {
+    font-family: "IBM Plex Sans", sans-serif;
+    background-color: #f4f5f7;
+    color: #1c1c1c;
+    min-height: 100vh;
 }
 
-#game-body {
+#game-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    height: calc(100vh - 69px);
+}
+
+#game-controls {
+    background-color: #fff;
+    border-right: 1px solid #dde1e7;
+    padding: 18px 16px 32px;
+    overflow-y: auto;
     display: flex;
-    gap: 20px;
-    align-items: flex-start;
+    flex-direction: column;
 }
 
-#game-left {
-    width: 47%;
-    flex-shrink: 0;
-}
-
-#game-right {
-    flex: 1;
+.section {
+    padding: 14px 0;
+    border-bottom: 1px solid #eaecef;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-top: 10px;
 }
 
-#graph-placeholder {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    height: 360px;
+.section:last-of-type { border-bottom: none; }
+
+.section-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #aaa;
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+.slider-body { flex: 1; min-width: 0; }
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.slider-name    { font-size: 12px; font-weight: 400; color: #555; }
+
+.slider-readout {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: #0b5190;
+    font-weight: 500;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: #aaa;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.slider:not(:disabled)::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #0b5190;
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(11, 81, 144, 0.18);
+}
+
+.slider:not(:disabled)::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #0b5190;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 0 3px rgba(11, 81, 144, 0.18);
+}
+
+.slider:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0;
+    border-bottom: 1px solid #f4f5f7;
+    gap: 10px;
+}
+
+.result-row:last-child { border-bottom: none; }
+
+.result-label { font-size: 11px; color: #666; flex: 1; }
+
+.result-value {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: #0b5190;
+    font-weight: 500;
+    text-align: right;
+}
+
+#launch-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 10px;
+    background-color: #0b5190;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "IBM Plex Sans", sans-serif;
+    cursor: pointer;
+}
+
+#launch-btn:hover    { background-color: #094477; }
+#launch-btn:disabled { background-color: #5e8db5; cursor: not-allowed; }
+
+#game-result { margin-top: 14px; }
+
+#game-result-text {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#new-challenge-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #eef1f5;
+    color: #0b5190;
+    border: 1px solid #aab0ba;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "IBM Plex Sans", sans-serif;
+    cursor: pointer;
+}
+
+#new-challenge-btn:hover { background-color: #dce2ea; }
+
+#game-display {
+    padding: 16px 20px;
+    overflow-y: auto;
+    background-color: #f4f5f7;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#challenge-target {
+    background-color: #fff;
+    border: 1px solid #dde1e7;
+    padding: 10px 14px;
+}
+
+#challenge-target-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0b5190;
+}
+
+#game-graph-placeholder {
+    background-color: #fff;
+    border: 1px solid #dde1e7;
+    height: 320px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#graph-loading {
-    color: #e5e5e5;
-    font-size: 14px;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+#game-graph-loading {
+    color: #bbb;
+    font-size: 13px;
 }
 
-#graph-img {
+#game-graph-img {
     width: 100%;
-    border-radius: 12px;
+    display: block;
     background-color: #fff;
+    border: 1px solid #dde1e7;
 }
 
-#result-block {
-    margin-top: 12px;
+@media (max-width: 900px) {
+    #game-layout          { grid-template-columns: 1fr; height: auto; }
+    #game-controls        { border-right: none; border-bottom: 1px solid #dde1e7; }
+    #game-display         { padding: 16px; }
 }
 
-#result-text {
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 8px;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-#new-btn {
-    width: 47%;
-    height: 35px;
-    background-color: #e5e5e5;
-    color: #0b5190;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-    font-family: "Inter", sans-serif;
-}
-
-#new-btn:hover {
-    background-color: #d0d0d0;
-}
-
-@media (max-width: 700px) {
-    #game-body {
-        flex-direction: column;
-    }
-
-    #game-left {
-        width: 100%;
-    }
-}
-
-#target-label {
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: 10px;
-}
-
-#target-text {
-    color: #0b5190;
-    font-size: 15px;
-    font-weight: 700;
+@media (max-width: 600px) {
+    #game-graph-placeholder { height: 220px; }
 }
