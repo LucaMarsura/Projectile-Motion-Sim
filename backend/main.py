@@ -16,19 +16,30 @@ def main():
     true_time = float(data["time"]) if data["time"] != "" else ""
     true_fvelocity = float(data["fvelocity"]) if data["fvelocity"] != "" else ""
     aero_presets = {
-        "aeropreset_baseball":   {"mass": 0.145,  "cd": 0.35,  "area": 0.0042},
-        "aeropreset_football":   {"mass": 0.415,  "cd": 0.06,  "area": 0.0365},
-        "aeropreset_ppball":     {"mass": 0.0027, "cd": 0.445, "area": 0.00126},
-        "aeropreset_soccerball": {"mass": 0.415,  "cd": 0.25,  "area": 0.0375},
-        "aeropreset_tennisball": {"mass": 0.057,  "cd": 0.6,   "area": 0.0035},
-        "aeropreset_paperplane": {"mass": 0.004,  "cd": 0.005, "area": 0.002},
-        "aeropreset_paperball":  {"mass": 0.04,   "cd": 0.55,  "area": 0.0028}
+        "aeropreset_baseball":    {"mass": 0.145,  "cd": 0.35,  "area": 0.0042},
+        "aeropreset_football":    {"mass": 0.415,  "cd": 0.06,  "area": 0.0365},
+        "aeropreset_ppball":      {"mass": 0.0027, "cd": 0.445, "area": 0.00126},
+        "aeropreset_soccerball":  {"mass": 0.415,  "cd": 0.25,  "area": 0.0375},
+        "aeropreset_tennisball":  {"mass": 0.057,  "cd": 0.6,   "area": 0.0035},
+        "aeropreset_paperplane":  {"mass": 0.004,  "cd": 0.005, "area": 0.002},
+        "aeropreset_paperball":   {"mass": 0.04,   "cd": 0.55,  "area": 0.0028},
+        "aeropreset_golfball":    {"mass": 0.046,  "cd": 0.24,  "area": 0.00143},
+        "aeropreset_basketball":  {"mass": 0.623,  "cd": 0.47,  "area": 0.0456},
+        "aeropreset_bowlingball": {"mass": 7.0,    "cd": 0.47,  "area": 0.0366},
+        "aeropreset_frisbee":     {"mass": 0.175,  "cd": 0.08,  "area": 0.0707},
+        "aeropreset_arrow":       {"mass": 0.025,  "cd": 0.004, "area": 0.00005},
+        "aeropreset_nerfdart":    {"mass": 0.001,  "cd": 0.75,  "area": 0.00008},
+        "aeropreset_spear":       {"mass": 0.4,    "cd": 0.04,  "area": 0.00008},
+        "aeropreset_shuttlecock": {"mass": 0.005,  "cd": 0.60,  "area": 0.0029}
     }
     den_presets = {
-        "denpreset_air":    {"density": 1.225},
-        "denpreset_vacuum": {"density": 0.0001},
-        "denpreset_water":  {"density": 1000},
-        "denpreset_oil":    {"density": 870}
+        "denpreset_air":         {"density": 1.225},
+        "denpreset_vacuum":      {"density": 0.0001},
+        "denpreset_water":       {"density": 1000},
+        "denpreset_oil":         {"density": 870},
+        "denpreset_highaltair":  {"density": 0.4},
+        "denpreset_syrup":       {"density": 1380},
+        "denpreset_moltenmetal": {"density": 6980}
     }
     aero_chosen = data.get("aeropreset", "")
     den_chosen = data.get("denpreset", "")
@@ -93,12 +104,6 @@ def main():
     elif nindependent == 3 and ndependent == 0:
         print(json.dumps({"error": "Insufficient data: provide at least 1 dependent variable.", "prints": [], "graph1": "", "graph2": ""}))
         return
-    elif ndependent == 1 and bool(true_fvelocity) and bool(true_iangle):
-        print(json.dumps({"error": "Specific case: missing variables cannot be inferred.", "prints": [], "graph1": "", "graph2": ""}))
-        return
-    elif ndependent == 1 and bool(true_fvelocity) and bool(true_gravity):
-        print(json.dumps({"error": "Specific case: missing variables cannot be inferred.", "prints": [], "graph1": "", "graph2": ""}))
-        return
     elif bool(true_fvelocity) and bool(true_ivelocity):
         if true_fvelocity > true_ivelocity:
             print(json.dumps({"error": "Impossible scenario: total velocity cannot increase during projectile motion.", "prints": [], "graph1": "", "graph2": ""}))
@@ -115,8 +120,15 @@ def main():
         result_fvelocity = list_velocity[-1]
         result_fangle = list_angle[-1]
     else:
-        result_ivelocity, result_iheight, result_iangle, result_gravity, uncertainty, iterations = iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, False, depvariable)
-    list_height, list_distance, list_time, list_velocity, list_angle = simulation(result_ivelocity, result_iheight, result_iangle, result_gravity, true_mass, true_density, true_cd, true_area)
+        if ndependent == 1 and bool(true_fvelocity) and bool(true_iangle):
+            print(json.dumps({"error": "Specific case: missing variables cannot be inferred.", "prints": [], "graph1": "", "graph2": ""}))
+            return
+        elif ndependent == 1 and bool(true_fvelocity) and bool(true_gravity):
+            print(json.dumps({"error": "Specific case: missing variables cannot be inferred.", "prints": [], "graph1": "", "graph2": ""}))
+            return
+        else:
+            result_ivelocity, result_iheight, result_iangle, result_gravity, uncertainty, iterations = iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, False, depvariable)
+            list_height, list_distance, list_time, list_velocity, list_angle = simulation(result_ivelocity, result_iheight, result_iangle, result_gravity, true_mass, true_density, true_cd, true_area)
     if depvariable == "distance":
         result_maxheight = max(list_height)
         result_time = list_time[-1]

@@ -7,38 +7,73 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 AERO_PRESETS = {
-    "aeropreset_baseball":   {"mass": 0.145,  "cd": 0.35,  "area": 0.0042},
-    "aeropreset_football":   {"mass": 0.415,  "cd": 0.06,  "area": 0.0365},
-    "aeropreset_ppball":     {"mass": 0.0027, "cd": 0.445, "area": 0.00126},
-    "aeropreset_soccerball": {"mass": 0.415,  "cd": 0.25,  "area": 0.0375},
-    "aeropreset_tennisball": {"mass": 0.057,  "cd": 0.6,   "area": 0.0035},
-    "aeropreset_paperplane": {"mass": 0.004,  "cd": 0.005, "area": 0.002},
-    "aeropreset_paperball":  {"mass": 0.04,   "cd": 0.55,  "area": 0.0028}
+    "aeropreset_baseball":    {"mass": 0.145,  "cd": 0.35,  "area": 0.0042},
+    "aeropreset_football":    {"mass": 0.415,  "cd": 0.06,  "area": 0.0365},
+    "aeropreset_ppball":      {"mass": 0.0027, "cd": 0.445, "area": 0.00126},
+    "aeropreset_soccerball":  {"mass": 0.415,  "cd": 0.25,  "area": 0.0375},
+    "aeropreset_tennisball":  {"mass": 0.057,  "cd": 0.6,   "area": 0.0035},
+    "aeropreset_paperplane":  {"mass": 0.004,  "cd": 0.005, "area": 0.002},
+    "aeropreset_paperball":   {"mass": 0.04,   "cd": 0.55,  "area": 0.0028},
+    "aeropreset_golfball":    {"mass": 0.046,  "cd": 0.24,  "area": 0.00143},
+    "aeropreset_basketball":  {"mass": 0.623,  "cd": 0.47,  "area": 0.0456},
+    "aeropreset_bowlingball": {"mass": 7.0,    "cd": 0.47,  "area": 0.0366},
+    "aeropreset_frisbee":     {"mass": 0.175,  "cd": 0.08,  "area": 0.0707},
+    "aeropreset_arrow":       {"mass": 0.025,  "cd": 0.004, "area": 0.00005},
+    "aeropreset_nerfdart":    {"mass": 0.001,  "cd": 0.75,  "area": 0.00008},
+    "aeropreset_spear":       {"mass": 0.4,    "cd": 0.04,  "area": 0.00008},
+    "aeropreset_shuttlecock": {"mass": 0.005,  "cd": 0.60,  "area": 0.0029}
 }
 
 DEN_PRESETS = {
-    "denpreset_air":    {"density": 1.225},
-    "denpreset_vacuum": {"density": 0.0001},
-    "denpreset_water":  {"density": 1000},
-    "denpreset_oil":    {"density": 870}
+    "denpreset_air":         {"density": 1.225},
+    "denpreset_vacuum":      {"density": 0.0001},
+    "denpreset_water":       {"density": 1000},
+    "denpreset_oil":         {"density": 870},
+    "denpreset_highaltair":  {"density": 0.4},
+    "denpreset_syrup":       {"density": 1380},
+    "denpreset_moltenmetal": {"density": 6980}
 }
 
 def pick_aero():
-    return random.choice(list(AERO_PRESETS.keys()))
+    return random.choices(
+        [
+            "aeropreset_baseball",
+            "aeropreset_football",
+            "aeropreset_ppball",
+            "aeropreset_soccerball",
+            "aeropreset_tennisball",
+            "aeropreset_paperplane",
+            "aeropreset_paperball",
+            "aeropreset_golfball",
+            "aeropreset_basketball",
+            "aeropreset_bowlingball",
+            "aeropreset_frisbee",
+            "aeropreset_arrow",
+            "aeropreset_nerfdart",
+            "aeropreset_spear",
+            "aeropreset_shuttlecock"
+        ],
+        weights = [12, 8, 6, 8, 8, 4, 4, 10, 8, 6, 8, 8, 4, 6, 10]
+    )[0]
 
 def pick_den():
     return random.choices(
-        ["denpreset_air", "denpreset_vacuum", "denpreset_water", "denpreset_oil"],
-        weights = [90, 5, 3, 2]
+        [
+            "denpreset_air",
+            "denpreset_vacuum",
+            "denpreset_water",
+            "denpreset_oil",
+            "denpreset_highaltair",
+            "denpreset_syrup",
+            "denpreset_moltenmetal"
+        ],
+        weights = [70, 10, 5, 5, 7, 2, 1]
     )[0]
 
 def pick_params():
     true_iheight  = round(random.uniform(0, 20), 1)
     true_gravity  = 9.81 if random.random() < 0.80 else round(random.uniform(1, 20), 2)
-    if true_iheight > 0:
-        true_iangle = round(random.uniform(-90, 90), 0)
-    else:
-        true_iangle = round(random.uniform(0, 90), 0)
+    true_iangle   = round(random.uniform(10, 80), 0)
     true_ivelocity = round(random.uniform(5, 40), 1)
     return true_ivelocity, true_iheight, true_iangle, true_gravity
 
@@ -81,15 +116,9 @@ def build_graph(gametype, target, list_height = None, list_distance = None):
     return graph
 
 def game_setup(body):
-    previous_state = body.get("previous_state", None)
-    if previous_state:
-        aero_key   = previous_state["aeropreset"]
-        den_key    = previous_state["denpreset"]
-        hidden_var = previous_state["hidden_var"]
-    else:
-        aero_key   = pick_aero()
-        den_key    = pick_den()
-        hidden_var = random.choice(["ivelocity", "iheight", "iangle", "gravity"])
+    aero_key   = pick_aero()
+    den_key    = pick_den()
+    hidden_var = random.choice(["ivelocity", "iheight", "iangle", "gravity"])
     aero = AERO_PRESETS[aero_key]
     den  = DEN_PRESETS[den_key]
     true_ivelocity, true_iheight, true_iangle, true_gravity = pick_params()
@@ -99,6 +128,17 @@ def game_setup(body):
     )
     gametype = random.choice(["distance", "maxheight"])
     target   = list_distance[-1] if gametype == "distance" else max(list_height)
+    if gametype == "maxheight" and (max(list_height) - true_iheight) < 2.0:
+        gametype = "distance"
+        target   = list_distance[-1]
+    if target < 2.0:
+        true_ivelocity, true_iheight, true_iangle, true_gravity = pick_params()
+        list_height, list_distance = run_sim(
+            true_ivelocity, true_iheight, true_iangle, true_gravity,
+            aero["mass"], den["density"], aero["cd"], aero["area"]
+        )
+        gametype = "distance"
+        target   = list_distance[-1]
     known_vars = {
         "ivelocity": true_ivelocity,
         "iheight":   true_iheight,

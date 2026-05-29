@@ -104,20 +104,32 @@
             gravity:   { min: 0,   max: 20,  step: 0.01, unit: "m/s²", label: "Ambient Gravity" }
         };
         const aeroLabels = {
-            aeropreset_baseball:   "Baseball",
-            aeropreset_football:   "Football",
-            aeropreset_ppball:     "Ping Pong Ball",
-            aeropreset_tennisball: "Tennis Ball",
-            aeropreset_soccerball: "Soccer Ball",
-            aeropreset_paperplane: "Paper Plane",
-            aeropreset_paperball:  "Paper Ball"
+            aeropreset_baseball:    "Baseball",
+            aeropreset_football:    "Football",
+            aeropreset_ppball:      "Ping Pong Ball",
+            aeropreset_tennisball:  "Tennis Ball",
+            aeropreset_soccerball:  "Soccer Ball",
+            aeropreset_paperplane:  "Paper Plane",
+            aeropreset_paperball:   "Paper Ball",
+            aeropreset_golfball:    "Golf Ball",
+            aeropreset_basketball:  "Basketball",
+            aeropreset_bowlingball: "Bowling Ball",
+            aeropreset_frisbee:     "Frisbee",
+            aeropreset_arrow:       "Arrow",
+            aeropreset_nerfdart:    "Nerf Dart",
+            aeropreset_spear:       "Spear",
+            aeropreset_shuttlecock: "Badminton Shuttlecock"
         };
         const denLabels = {
-            denpreset_air:    "Air",
-            denpreset_vacuum: "Vacuum",
-            denpreset_water:  "Water",
-            denpreset_oil:    "Oil"
+            denpreset_air:         "Air",
+            denpreset_vacuum:      "Vacuum",
+            denpreset_water:       "Water",
+            denpreset_oil:         "Oil",
+            denpreset_highaltair:  "High-Altitude Air",
+            denpreset_syrup:       "Syrup",
+            denpreset_moltenmetal: "Molten Metal"
         };
+
         async function loadGame(previousAttempt = null, previousState = null) {
             document.getElementById("result-block").style.display = "none";
             document.getElementById("graph-placeholder").style.display = "flex";
@@ -201,15 +213,7 @@
             }
         }
         function newGame() {
-            const lastAttempt = gameState ? gameState.lastAttempt ?? null : null;
-            const prevState   = gameState ? {
-                known_vars: gameState.known_vars,
-                hidden_var: gameState.hidden_var,
-                aeropreset: gameState.aeropreset,
-                denpreset:  gameState.denpreset,
-                gametype:   gameState.gametype
-            } : null;
-            loadGame(lastAttempt, prevState);
+            loadGame(null, null);
         }
         function showGraph(b64) {
             document.getElementById("graph-placeholder").style.display = "none";
