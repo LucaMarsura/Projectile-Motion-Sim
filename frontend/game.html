@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
     <title>Game — PMAD Simulator</title>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0NVVGN1QVW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0NVVGN1QVW');
+</script>
 <body>
 
     <nav>
@@ -94,37 +103,15 @@
         let challenge = null;
 
         const sliderConfig = {
-            ivelocity: { min: 0, max: 40, step: 0.01, unit: "m/s", label: "Initial Velocity" },
-            iheight: { min: 0, max: 20, step: 0.01, unit: "m", label: "Initial Height"   },
-            iangle: { min: -90, max: 90, step: 0.01, unit: "°", label: "Launch Angle"     },
-            gravity: { min: 0, max: 20, step: 0.01, unit: "m/s²", label: "Ambient Gravity"  }
+            ivelocity: { min: 0, max: 40, step: 0.01, unit: "m/s", label: "Initial Velocity" }, iheight: { min: 0, max: 20, step: 0.01, unit: "m", label: "Initial Height"   }, iangle: { min: -90, max: 90, step: 0.01, unit: "°", label: "Launch Angle"     }, gravity: { min: 0, max: 20, step: 0.01, unit: "m/s²", label: "Ambient Gravity"  }
         };
 
         const dragLabels = {
-            aeropreset_baseball: "Baseball",
-            aeropreset_football: "Football",
-            aeropreset_ppball: "Ping Pong Ball",
-            aeropreset_tennisball: "Tennis Ball",
-            aeropreset_soccerball: "Soccer Ball",
-            aeropreset_paperplane: "Paper Plane",
-            aeropreset_paperball: "Paper Ball",
-            aeropreset_golfball: "Golf Ball",
-            aeropreset_basketball: "Basketball",
-            aeropreset_bowlingball: "Bowling Ball",
-            aeropreset_frisbee: "Frisbee",
-            aeropreset_arrow: "Arrow",
-            aeropreset_spear: "Spear",
-            aeropreset_shuttlecock: "Badminton Shuttlecock"
+            aeropreset_baseball: "Baseball", aeropreset_football: "Football", aeropreset_ppball: "Ping Pong Ball", aeropreset_tennisball: "Tennis Ball", aeropreset_soccerball: "Soccer Ball", aeropreset_paperplane: "Paper Plane", aeropreset_paperball: "Paper Ball", aeropreset_golfball: "Golf Ball", aeropreset_basketball: "Basketball", aeropreset_bowlingball: "Bowling Ball", aeropreset_frisbee: "Frisbee", aeropreset_arrow: "Arrow", aeropreset_spear: "Spear", aeropreset_shuttlecock: "Badminton Shuttlecock"
         };
 
         const densityLabels = {
-            denpreset_air: "Air",
-            denpreset_vacuum: "Vacuum",
-            denpreset_water: "Water",
-            denpreset_oil: "Oil",
-            denpreset_highaltair: "High-Altitude Air",
-            denpreset_syrup: "Syrup",
-            denpreset_moltenmetal: "Molten Metal"
+            denpreset_air: "Air", denpreset_vacuum: "Vacuum", denpreset_water: "Water", denpreset_oil: "Oil", denpreset_highaltair: "High-Altitude Air", denpreset_syrup: "Syrup", denpreset_moltenmetal: "Molten Metal"
         };
 
 
