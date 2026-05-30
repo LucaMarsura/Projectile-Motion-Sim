@@ -3,7 +3,7 @@ from simulation import simulation
 
 def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, allow_timestamps, depvariable):
     uncertainty = 1
-    iterations  = 0
+    iterations = 0
 
     if true_ivelocity == "":
         experimental_ivelocity = 20
@@ -22,7 +22,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_ivelocity += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_distance - true_distance) / true_distance
+                uncertainty = (trial_distance - true_distance) / true_distance
 
         if bool(true_maxheight):
             true_maxheight = float(true_maxheight)
@@ -35,7 +35,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_ivelocity += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_maxheight - true_maxheight) / true_maxheight
+                uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
 
         elif bool(true_time):
             true_time = float(true_time)
@@ -48,7 +48,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_ivelocity += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_time - true_time) / true_time
+                uncertainty = (trial_time - true_time) / true_time
 
         elif bool(true_fvelocity):
             true_fvelocity = float(true_fvelocity)
@@ -61,12 +61,12 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_ivelocity += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_fvelocity - true_fvelocity) / true_fvelocity
+                uncertainty = (trial_fvelocity - true_fvelocity) / true_fvelocity
 
         result_ivelocity = experimental_ivelocity
-        result_iheight   = true_iheight
-        result_iangle    = true_iangle
-        result_gravity   = true_gravity
+        result_iheight = true_iheight
+        result_iangle = true_iangle
+        result_gravity = true_gravity
 
     elif true_iheight == "":
         experimental_iheight = 100
@@ -83,7 +83,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iheight += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_distance - true_distance) / true_distance
+                uncertainty = (trial_distance - true_distance) / true_distance
 
         elif bool(true_maxheight):
             true_maxheight = float(true_maxheight)
@@ -98,7 +98,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iheight += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_maxheight - true_maxheight) / true_maxheight
+                uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
 
         elif bool(true_time):
             true_time = float(true_time)
@@ -111,7 +111,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iheight += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_time - true_time) / true_time
+                uncertainty = (trial_time - true_time) / true_time
 
         elif bool(true_fvelocity):
             true_fvelocity = float(true_fvelocity)
@@ -124,12 +124,12 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iheight += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_fvelocity - true_fvelocity) / true_fvelocity
+                uncertainty = (trial_fvelocity - true_fvelocity) / true_fvelocity
 
         result_ivelocity = true_ivelocity
-        result_iheight   = experimental_iheight
-        result_iangle    = true_iangle
-        result_gravity   = true_gravity
+        result_iheight = experimental_iheight
+        result_iangle = true_iangle
+        result_gravity = true_gravity
 
     elif true_iangle == "":
         experimental_iangle = 0
@@ -146,7 +146,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iangle += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_distance - true_distance) / true_distance
+                uncertainty = (trial_distance - true_distance) / true_distance
 
         elif bool(true_maxheight):
             true_maxheight = float(true_maxheight)
@@ -159,7 +159,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iangle += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_maxheight - true_maxheight) / true_maxheight
+                uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
 
         elif bool(true_time):
             true_time = float(true_time)
@@ -172,7 +172,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iangle += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_time - true_time) / true_time
+                uncertainty = (trial_time - true_time) / true_time
 
         elif bool(true_fvelocity):
             true_fvelocity = float(true_fvelocity)
@@ -185,12 +185,12 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_iangle += search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_fvelocity - true_fvelocity) / true_fvelocity
+                uncertainty = (trial_fvelocity - true_fvelocity) / true_fvelocity
 
         result_ivelocity = true_ivelocity
-        result_iheight   = true_iheight
-        result_iangle    = experimental_iangle
-        result_gravity   = true_gravity
+        result_iheight = true_iheight
+        result_iangle = experimental_iangle
+        result_gravity = true_gravity
 
     elif true_gravity == "":
         experimental_gravity = 25
@@ -207,7 +207,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_gravity -= search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_distance - true_distance) / true_distance
+                uncertainty = (trial_distance - true_distance) / true_distance
 
         elif bool(true_maxheight):
             true_maxheight = float(true_maxheight)
@@ -220,7 +220,7 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_gravity -= search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_maxheight - true_maxheight) / true_maxheight
+                uncertainty = (trial_maxheight - true_maxheight) / true_maxheight
 
         elif bool(true_time):
             true_time = float(true_time)
@@ -233,11 +233,11 @@ def iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, tru
                     experimental_gravity -= search_step
                 search_step /= 2
                 iterations  += 1
-                uncertainty  = (trial_time - true_time) / true_time
+                uncertainty = (trial_time - true_time) / true_time
 
         result_ivelocity = true_ivelocity
-        result_iheight   = true_iheight
-        result_iangle    = true_iangle
-        result_gravity   = experimental_gravity
+        result_iheight = true_iheight
+        result_iangle = true_iangle
+        result_gravity = experimental_gravity
 
     return result_ivelocity, result_iheight, result_iangle, result_gravity, uncertainty, iterations

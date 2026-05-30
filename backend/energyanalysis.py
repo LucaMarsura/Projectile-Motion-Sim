@@ -4,27 +4,31 @@ from io import BytesIO
 
 
 def energy(list_time, list_distance, list_height, list_velocity, true_mass, result_gravity):
-    list_ekinetic   = []
+    list_ekinetic = []
     list_epotential = []
-    list_etotal     = []
+    list_etotal = []
 
     for i in range(len(list_time)):
-        ekinetic   = 0.5 * true_mass * list_velocity[i] ** 2
+        ekinetic = 0.5 * true_mass * list_velocity[i] ** 2
         epotential = true_mass * result_gravity * list_height[i]
-        etotal     = ekinetic + epotential
+        etotal = ekinetic + epotential
         list_ekinetic.append(ekinetic)
         list_epotential.append(epotential)
         list_etotal.append(etotal)
 
     peak_index = list_height.index(max(list_height))
 
-    result_ikinetic   = list_ekinetic[0]
+    result_ikinetic = list_ekinetic[0]
     result_ipotential = list_epotential[0]
-    result_itotal     = list_etotal[0]
-    result_ftotal     = list_ekinetic[-1]
-    result_pkinetic   = list_ekinetic[peak_index]
+    if list_height[0] == 0.0001:
+        result_ipotential = 0
+    else:
+        result_ipotential = list_epotential[0]
+    result_itotal = list_etotal[0]
+    result_ftotal = list_ekinetic[-1]
+    result_pkinetic = list_ekinetic[peak_index]
     result_ppotential = list_epotential[peak_index]
-    result_ptotal     = result_pkinetic + result_ppotential
+    result_ptotal = result_pkinetic + result_ppotential
 
     #energy dissipation, accounting for small rounding errors
     result_edissipated = result_itotal - result_ftotal
