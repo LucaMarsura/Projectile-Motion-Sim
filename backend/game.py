@@ -48,9 +48,13 @@ def select_den():
 
 def pick_variables():
     true_iheight = round(random.uniform(0, 20), 1)
-    true_gravity = 9.81 if random.random() < 0.80 else round(random.uniform(1, 20), 2)
+    if random.ranint(0,100) < 80:
+        true_gravity = 9.81
+    else:
+        round(random.uniform(1, 20), 2)
     true_iangle = round(random.uniform(10, 80), 0)
     true_ivelocity = round(random.uniform(5, 40), 1)
+
     return true_ivelocity, true_iheight, true_iangle, true_gravity
 
 def create_graph(gametype, target, list_height=None, list_distance=None):
@@ -100,7 +104,10 @@ def set_game(body):
     list_height, list_distance, *_ = simulation(true_ivelocity, float(true_iheight) + 0.0001, true_iangle, true_gravity, drag["mass"], density["density"], drag["cd"], drag["area"])
 
     gametype = random.choice(["distance", "maxheight"])
-    target = list_distance[-1] if gametype == "distance" else max(list_height)
+    if gametype == "distance":
+        target = list_distance[-1]
+    else:
+        max(list_height)
 
     if gametype == "maxheight" and (max(list_height) - true_iheight) < 2.0:
         gametype = "distance"

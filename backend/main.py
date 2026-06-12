@@ -70,15 +70,27 @@ def main():
     ndep = 0
 
     #missing/given variables
-    if bool(true_ivelocity): nindep += 1
-    if bool(true_iheight): nindep += 1
-    if bool(true_iangle): nindep += 1
-    if bool(true_gravity): nindep += 1
+    if bool(true_ivelocity):
+        nindep += 1
+    if bool(true_iheight):
+        nindep += 1
+    if bool(true_iangle):
+        nindep += 1
+    if bool(true_gravity):
+        nindep += 1
 
-    if bool(true_distance): ndep += 1; depvariable = "distance"
-    if bool(true_maxheight): ndep += 1; depvariable = "maxheight"
-    if bool(true_time): ndep += 1; depvariable = "time"
-    if bool(true_fvelocity): ndep += 1; depvariable = "fvelocity"
+    if bool(true_distance):
+        ndep += 1
+        depvariable = "distance"
+    if bool(true_maxheight):
+        ndep += 1
+        depvariable = "maxheight"
+    if bool(true_time):
+        ndep += 1
+        depvariable = "time"
+    if bool(true_fvelocity):
+        ndep += 1
+        depvariable = "fvelocity"
 
     if nindep < 3:
         print(json.dumps({"error": "Insufficient data: provide at least 3 independent variables.", "prints": [], "graph1": "", "graph2": ""}))
@@ -105,7 +117,7 @@ def main():
     #final sim with all indep parameters
     list_height, list_distance, list_time, list_velocity, list_angle = simulation(result_ivelocity, result_iheight, result_iangle, result_gravity, true_mass, true_density, true_cd, true_area)
 
-    #output definition
+    #outputs
     result_distance = list_distance[-1]
     result_maxheight = max(list_height)
     result_time = list_time[-1]
