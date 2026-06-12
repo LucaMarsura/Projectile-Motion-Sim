@@ -1,0 +1,271 @@
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #f5f5f5;
+    color: #36454f;
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 40px 60px;
+    gap: 40px;
+}
+
+#img-main {
+    width: 40%;
+    flex-shrink: 0;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+#hero-text {
+    flex: 1;
+}
+
+#hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    line-height: 1.1;
+    color: #0f1728;
+}
+
+#hero-subtitle {
+    font-size: 22px;
+    font-weight: 500;
+    color: #6b7280;
+    margin: 0 0 16px;
+    line-height: 1.4;
+}
+
+#hero-desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: #36454f;
+    line-height: 1.75;
+}
+
+#sim-cta,
+#game-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    text-decoration: none;
+    width: 100%;
+}
+
+a#sim-cta,
+a#game-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+}
+
+#cta-button {
+    background-color: #0b5190;
+    width: 40%;
+    height: 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #f5f5f5;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    display: block;
+    margin: 0 auto;
+}
+
+#cta-button:hover {
+    background-color: #094477;
+}
+
+#cta-privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+}
+
+#cta-shield {
+    height: 14px;
+}
+
+#cta-privacy-text {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+    color: #6b7280;
+}
+
+.feature-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 40px 30px;
+    align-items: stretch;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    border: 1.5px solid #0b5190;
+    border-radius: 12px;
+    padding: 16px;
+    background: #fff;
+}
+
+.feature-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.feature-card-icon {
+    height: 28px;
+    width: 28px;
+    flex-shrink: 0;
+}
+
+.feature-card-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0b5190;
+    margin: 0;
+}
+
+.feature-card-desc {
+    font-size: 12px;
+    font-weight: 500;
+    color: #36454f;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.list {
+    padding: 0 30px 0 60px;
+    max-width: 900px;
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.item-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: #b0b8c1;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+    letter-spacing: -0.03em;
+}
+
+.item-text {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0b5190;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+}
+
+.item-para {
+    font-size: 16px;
+    font-weight: 400;
+    color: #36454f;
+    margin: 0;
+    line-height: 1.75;
+    max-width: 620px;
+}
+
+.divider {
+    height: 1.5px;
+    background-color: #e5e5e5;
+    margin: 0 0 0 60px;
+}
+
+@media (max-width: 900px) {
+    .feature-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #main {
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 20px;
+    }
+
+    #img-main {
+        display: none;
+    }
+
+    #hero-title {
+        font-size: 36px;
+    }
+
+    #hero-subtitle {
+        font-size: 18px;
+    }
+
+    #cta-button {
+        width: 80%;
+    }
+
+    #sim-cta,
+    #game-cta {
+        padding: 0 16px;
+    }
+
+    .feature-cards {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .feature-card-icon {
+        display: none;
+    }
+
+    .list {
+        padding: 0 16px;
+    }
+
+    .item {
+        gap: 20px;
+        padding: 24px 0;
+    }
+
+    .item-num {
+        font-size: 32px;
+        width: 40px;
+    }
+
+    .item-title {
+        font-size: 18px;
+    }
+
+    .item-para {
+        font-size: 14px;
+    }
+
+    .divider {
+        margin-left: 16px;
+    }
+}

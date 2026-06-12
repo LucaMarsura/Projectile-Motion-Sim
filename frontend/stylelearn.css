@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#learn-hero {
+    align-items: center;
+    padding: 40px 30px;
+    gap: 30px;
+    border-bottom: 1.5px solid #e5e5e5;
+}
+
+#learn-hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    line-height: 1.1;
+    color: #0f1728;
+}
+
+#learn-hero-sub {
+    font-size: 22px;
+    font-weight: 500;
+    color: #6b7280;
+    margin: 0 0 16px;
+    line-height: 1.4;
+}
+
+.learn-content {
+    padding: 0 60px;
+    max-width: 860px;
+}
+
+.learn-section {
+    padding: 40px 0;
+}
+
+.learn-section-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0b5190;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+}
+
+.learn-para {
+    font-size: 16px;
+    font-weight: 400;
+    color: #36454f;
+    line-height: 1.75;
+    margin: 0 0 16px;
+    max-width: 680px;
+}
+
+.eq-block {
+    background: #f0f4f8;
+    border-left: 3px solid #0b5190;
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.eq-block.two-col {
+    flex-direction: row;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.eq-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.eq-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0b5190;
+    margin-bottom: 4px;
+}
+
+.eq {
+    font-size: 15px;
+    color: #0f1728;
+}
+
+.learn-divider {
+    height: 1.5px;
+    background-color: #e5e5e5;
+}
+
+.result-explainer {
+    margin: 0 0 24px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.result-explainer-label {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0b5190;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.result-explainer .learn-para { margin-bottom: 8px; }
+
+@media (max-width: 700px) {
+    #learn-hero {
+        padding: 40px 20px 30px;
+    }
+
+    #learn-hero-title {
+        font-size: 36px;
+    }
+
+    .learn-content {
+        padding: 0 20px;
+    }
+
+    .eq-block.two-col {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

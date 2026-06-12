@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#img-main {
+    max-height: 320px;
+    object-fit: contain;
+}
+
+#game-cta {
+    margin-top: 20px;
+}

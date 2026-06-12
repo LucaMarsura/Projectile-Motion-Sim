@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="stylegame.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <title>Game — PMAD Simulator</title>
+
+    <!-- Google tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NVVGN1QVW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0NVVGN1QVW');
+    </script>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><img src="images/logo.png" id="nav-logo" alt="Logo"></a></li>
+            <li><a href="learn.html" class="nav-link">Learn</a></li>
+            <li><a href="gameindex.html" class="nav-link">Game</a></li>
+            <li><a href="sim.html" class="nav-link">Simulation</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="results.html" class="nav-link">Results</a></li>
+        </ul>
+    </nav>
+
+    <div id="game-layout">
+        <div id="game-controls">
+            <div class="section">
+                <div class="section-label">Independent Variables</div>
+                <div class="slider-row" id="row-ivelocity">
+                    <div class="slider-body">
+                        <div class="slider-header">
+                            <span class="slider-name">Initial Velocity</span>
+                            <span class="slider-readout" id="ivelocity-label">—</span>
+                        </div>
+                        <input id="ivelocity" type="range" min="0" max="40" value="20" step="0.1" disabled class="slider">
+                    </div>
+                </div>
+                <div class="slider-row" id="row-iheight">
+                    <div class="slider-body">
+                        <div class="slider-header">
+                            <span class="slider-name">Initial Height</span>
+                            <span class="slider-readout" id="iheight-label">—</span>
+                        </div>
+                        <input id="iheight" type="range" min="0" max="20" value="10" step="0.1" disabled class="slider">
+                    </div>
+                </div>
+                <div class="slider-row" id="row-iangle">
+                    <div class="slider-body">
+                        <div class="slider-header">
+                            <span class="slider-name">Launch Angle</span>
+                            <span class="slider-readout" id="iangle-label">—</span>
+                        </div>
+                        <input id="iangle" type="range" min="-90" max="90" value="45" step="1" disabled class="slider">
+                    </div>
+                </div>
+                <div class="slider-row" id="row-gravity">
+                    <div class="slider-body">
+                        <div class="slider-header">
+                            <span class="slider-name">Ambient Gravity</span>
+                            <span class="slider-readout" id="gravity-label">—</span>
+                        </div>
+                        <input id="gravity" type="range" min="0" max="20" value="9.81" step="0.01" disabled class="slider">
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-label">Drag Parameters</div>
+                <div class="result-row"><span class="result-label">Preset</span>           <span class="result-value" id="display-drag-preset">—</span></div>
+                <div class="result-row"><span class="result-label">Mass</span>              <span class="result-value" id="display-mass">—</span></div>
+                <div class="result-row"><span class="result-label">Drag Coefficient</span>  <span class="result-value" id="display-drag-coeff">—</span></div>
+                <div class="result-row"><span class="result-label">Cross-Sect. Area</span>  <span class="result-value" id="display-area">—</span></div>
+            </div>
+            <div class="section">
+                <div class="section-label">Density Parameters</div>
+                <div class="result-row"><span class="result-label">Preset</span>        <span class="result-value" id="display-density-preset">—</span></div>
+                <div class="result-row"><span class="result-label">Fluid Density</span> <span class="result-value" id="display-density">—</span></div>
+            </div>
+            <button id="launch-btn" onclick="runGame()">Launch</button>
+            <div id="game-result" style="display:none;">
+                <p id="game-result-text"></p>
+                <button id="new-challenge-btn" onclick="newGame()">New Challenge</button>
+            </div>
+        </div>
+        <div id="game-display">
+            <div id="challenge-target">
+                <span id="challenge-target-text">Loading...</span>
+            </div>
+            <div id="game-graph-placeholder">
+                <p id="game-graph-loading">Generating challenge...</p>
+            </div>
+            <img id="game-graph-img" style="display:none;" alt="Game graph">
+        </div>
+    </div>
+
+    <script>
+        let challenge = null;
+
+        const sliderConfig = {
+            ivelocity: { min: 0, max: 40, step: 0.01, unit: "m/s", label: "Initial Velocity" }, iheight: { min: 0, max: 20, step: 0.01, unit: "m", label: "Initial Height"   }, iangle: { min: -90, max: 90, step: 0.01, unit: "°", label: "Launch Angle"     }, gravity: { min: 0, max: 20, step: 0.01, unit: "m/s²", label: "Ambient Gravity"  }
+        };
+
+        const dragLabels = {
+            aeropreset_baseball: "Baseball", aeropreset_football: "Football", aeropreset_ppball: "Ping Pong Ball", aeropreset_tennisball: "Tennis Ball", aeropreset_soccerball: "Soccer Ball", aeropreset_paperplane: "Paper Plane", aeropreset_paperball: "Paper Ball", aeropreset_golfball: "Golf Ball", aeropreset_basketball: "Basketball", aeropreset_bowlingball: "Bowling Ball", aeropreset_frisbee: "Frisbee", aeropreset_arrow: "Arrow", aeropreset_spear: "Spear", aeropreset_shuttlecock: "Badminton Shuttlecock"
+        };
+
+        const densityLabels = {
+            denpreset_air: "Air", denpreset_vacuum: "Vacuum", denpreset_water: "Water", denpreset_oil: "Oil", denpreset_highaltair: "High-Altitude Air", denpreset_syrup: "Syrup", denpreset_moltenmetal: "Molten Metal"
+        };
+
+
+        async function setupGame(lastAttempt = null, lastState = null) {
+            document.getElementById("game-result").style.display = "none";
+            document.getElementById("game-graph-placeholder").style.display = "flex";
+            document.getElementById("game-graph-img").style.display = "none";
+            document.getElementById("game-graph-loading").textContent = "Generating challenge...";
+            document.getElementById("challenge-target-text").textContent = "Loading...";
+            document.getElementById("launch-btn").disabled = true;
+
+            let res;
+            try {
+                res = await fetch("/game_setup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ previous_attempt: lastAttempt, previous_state: lastState }) });
+            } catch (err) {
+                document.getElementById("game-graph-loading").textContent = "Could not connect to server.";
+                return;
+            }
+
+            challenge = await res.json();
+            if (challenge.error) {
+                document.getElementById("game-graph-loading").textContent = "Error: " + challenge.error;
+                return;
+            }
+
+            showGraph(challenge.graph);
+
+            const allVars = ["ivelocity", "iheight", "iangle", "gravity"];
+            const units = { ivelocity: "m/s", iheight: "m", iangle: "°", gravity: "m/s²" };
+
+            allVars.forEach(v => {
+                const slider = document.getElementById(v);
+                const label = document.getElementById(v + "-label");
+                const row = document.getElementById("row-" + v);
+
+                if (v === challenge.hidden_var) {
+                    const cfg = sliderConfig[v];
+                    slider.min = cfg.min;
+                    slider.max = cfg.max;
+                    slider.step = cfg.step;
+                    slider.disabled = false;
+                    slider.value = lastAttempt !== null ? lastAttempt : ((parseFloat(cfg.min) + parseFloat(cfg.max)) / 2).toFixed(1);
+                    label.textContent = parseFloat(slider.value).toFixed(2) + " " + cfg.unit;
+                    slider.oninput = function() { label.textContent = parseFloat(this.value).toFixed(2) + " " + cfg.unit; };
+                    row.style.outline = "none";
+                } else {
+                    slider.disabled = true;
+                    slider.value = challenge.known_vars[v];
+                    label.textContent = parseFloat(challenge.known_vars[v]).toFixed(2) + " " + units[v];
+                    row.style.outline = "none";
+                }
+            });
+
+            document.getElementById("display-drag-preset").textContent = dragLabels[challenge.aeropreset] || challenge.aeropreset;
+            document.getElementById("display-mass").textContent = challenge.mass.toFixed(4) + " kg";
+            document.getElementById("display-drag-coeff").textContent = challenge.cd.toFixed(3);
+            document.getElementById("display-area").textContent = challenge.area.toFixed(5) + " m²";
+            document.getElementById("display-density-preset").textContent = densityLabels[challenge.denpreset] || challenge.denpreset;
+            document.getElementById("display-density").textContent = challenge.density.toFixed(4) + " kg/m³";
+
+            document.getElementById("challenge-target-text").textContent =
+                (challenge.gametype === "distance" ? "Distance" : "Peak Height") +
+                ": " + challenge.target_min + " – " + challenge.target_max + " m";
+
+            document.getElementById("launch-btn").disabled = false;
+        }
+
+        async function runGame() {
+            document.getElementById("launch-btn").disabled = true;
+            document.getElementById("game-graph-placeholder").style.display = "flex";
+            document.getElementById("game-graph-loading").textContent = "Running simulation...";
+            document.getElementById("game-graph-img").style.display = "none";
+
+            const slider = document.getElementById(challenge.hidden_var);
+            const attempt = parseFloat(slider.value);
+
+            let res;
+            try {
+                res = await fetch("/game_run", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hidden_var: challenge.hidden_var, attempt_value: attempt, known_vars: challenge.known_vars, target: challenge.target, gametype: challenge.gametype, aeropreset: challenge.aeropreset, denpreset: challenge.denpreset }) });
+            } catch (err) {
+                document.getElementById("game-graph-loading").textContent = "Could not connect to server.";
+                document.getElementById("launch-btn").disabled = false;
+                return;
+            }
+
+            const data = await res.json();
+            if (data.error) {
+                document.getElementById("game-graph-loading").textContent = "Error: " + data.error;
+                document.getElementById("launch-btn").disabled = false;
+                return;
+            }
+
+            showGraph(data.graph);
+            challenge.last_attempt = attempt;
+
+            const resultBox = document.getElementById("game-result");
+            const resultText = document.getElementById("game-result-text");
+            resultBox.style.display = "block";
+
+            if (data.success) {
+                resultText.textContent = "✓ Passed! Deviation: " + data.deviation.toFixed(2) + "%";
+                resultText.style.color = "#16a34a";
+            } else {
+                resultText.textContent = "✗ Deviation: " + data.deviation.toFixed(2) + "% - adjust and try again.";
+                resultText.style.color = "#dc2626";
+                document.getElementById("launch-btn").disabled = false;
+            }
+        }
+
+        function newGame() { setupGame(null, null); }
+
+        function showGraph(b64) {
+            document.getElementById("game-graph-placeholder").style.display = "none";
+            const img = document.getElementById("game-graph-img");
+            img.src = "data:image/png;base64," + b64;
+            img.style.display = "block";
+        }
+
+        setupGame();
+    </script>
+
+
+    <footer id='site-footer'>
+        <a href='mailto:lucamarsura@pmad-sim.org'><img src='images/email.png' class='footer-icon' alt='Email'></a>
+        <a href='https://www.linkedin.com/in/luca-marsura' target='_blank'><img src='images/linkedin.png' class='footer-icon' alt='LinkedIn'></a>
+        <a href='https://www.youtube.com/@PMADSim' target='_blank'><img src='images/youtube.png' class='footer-icon' alt='YouTube'></a>
+        <a href='tel:+15863511431'><img src='images/phone.png' class='footer-icon' alt='Phone'></a>
+    </footer>
+</body>
+</html>

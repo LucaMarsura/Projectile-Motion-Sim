@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="styleindex.css">
+    <link rel="stylesheet" href="stylelearn.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <title>Understanding Results — PMAD</title>
+
+    <!-- Google tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NVVGN1QVW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0NVVGN1QVW');
+    </script>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><img src="images/logo.png" id="nav-logo" alt="Logo"></a></li>
+            <li><a href="learn.html" class="nav-link">Learn</a></li>
+            <li><a href="gameindex.html" class="nav-link">Game</a></li>
+            <li><a href="sim.html" class="nav-link">Simulation</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="results.html" class="nav-link">Results</a></li>
+        </ul>
+    </nav>
+
+    <div id="learn-hero">
+        <h1 id="learn-hero-title">Understanding Results</h1>
+        <p id="learn-hero-sub">What every output from the PMAD simulator means.</p>
+    </div>
+
+    <div class="learn-content">
+
+        <!-- TRAJECTORY RESULTS -->
+        <div class="learn-section">
+            <h2 class="learn-section-title">Trajectory Results</h2>
+            <p class="learn-para">After running any given simulation, the simulator will compute 5 outcomes that describe your trajectory based on your launch parameters.</p>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Distance Traveled</div>
+                <p class="learn-para">The total horizontal distance traveled by the projectile.</p>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Peak Height</div>
+                <p class="learn-para">The maximum height reached during your flight. This occurs when the vertical velocity component is 0, and gravitational potential energy reaches its peak.</p>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Time of Flight</div>
+                <p class="learn-para">The total duration of the projectile's flight, from launch until the projectile hits the floor.</p>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Final Velocity</div>
+                <p class="learn-para">The raw speed of the projectile upon landing. Due to the drag force, final velocity will always be lower than (or equal to) initial velocity.</p>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Impact Angle</div>
+                <p class="learn-para">The angle the projectile makes at the moment of impact, measured in degrees.</p>
+            </div>
+        </div>
+
+        <div class="learn-divider"></div>
+
+        <!-- PARAMETERS -->
+        <div class="learn-section">
+            <h2 class="learn-section-title">Parameters</h2>
+            <p class="learn-para">The exact values used in the simulation. This section is especially useful when using variable inference, as it shows you the solved value.</p>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Inferred Variable & Uncertainty</div>
+                <p class="learn-para">When one launch parameter is left unknown, the simulator iteratively adjusts it until the target dependent variable is matched. The uncertainty value represents how closely the solver converged - PMAD targets a convergence of 0.1%.</p>
+                <div class="eq-block">
+                    <div class="eq">\( \epsilon = \left| \dfrac{x_{computed} - x_{target}}{x_{target}} \right| \times 100\% \)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="learn-divider"></div>
+
+        <!-- ENERGY ANALYSIS -->
+        <div class="learn-section">
+            <h2 class="learn-section-title">Energy Analysis</h2>
+            <p class="learn-para">The energy analysis breaks down the projectile's energy state at three key points in its flight: the initial launch point, the peak height, and the final landing point.</p>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Kinetic Energy (KE)</div>
+                <p class="learn-para">Energy due to motion. Highest at launch and landing, zero only if the projectile were to stop mid-air.</p>
+                <div class="eq-block">
+                    <div class="eq">\( KE = \tfrac{1}{2}mv^2 \)</div>
+                </div>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Gravitational Potential Energy (GPE)</div>
+                <p class="learn-para">Energy due to height above the ground. Zero at launch (if launched from ground level), maximum at peak height.</p>
+                <div class="eq-block">
+                    <div class="eq">\( GPE = mgh \)</div>
+                </div>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Total Mechanical Energy</div>
+                <p class="learn-para">The sum of KE and GPE at each point. In an ideal (drag-free) system this would remain constant throughout flight. With drag, total energy decreases progressively as energy is lost to the fluid as heat.</p>
+                <div class="eq-block">
+                    <div class="eq">\( E_{total} = KE + GPE \)</div>
+                </div>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Energy Lost to Drag</div>
+                <p class="learn-para">The difference between the final total energy and the initial total energy. This represents all mechanical energy dissipated by the drag force over the entire flight. A larger value indicates a higher-drag scenario.</p>
+                <div class="eq-block">
+                    <div class="eq">\( E_{drag} = E_{final} - E_{initial} \)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="learn-divider"></div>
+
+        <!-- GRAPHS -->
+        <div class="learn-section">
+            <h2 class="learn-section-title">The Graphs</h2>
+            <p class="learn-para">The simulator outputs two static graphs helping students to visually understand trajectories and energy compositions.</p>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Trajectory Graph</div>
+                <p class="learn-para">This graph shows the parabolic motion of the projectile by plotting the projectile's height against its distance. Notice how sometimes the trajectory will be asymmetric, due to the nonlinear drag force. On this graph you can observe the motion and trajectory of the projectile, as well as how this motion relates to outcomes like distance or maximum height.</p>
+            </div>
+
+            <div class="result-explainer">
+                <div class="result-explainer-label">Energy-Time Graph</div>
+                <p class="learn-para">This graph displays how the total energy of the projectile was composed over time. In a vacuum, total energy remains constant, while with drag, energy is dissipated through drag at nonlinear rates. This is also why you can observe total energy decreasing faster when kinetic energy, based on speed, is higher - as drag force (which dissipates energy) acts on the projectile at higher rates.</p>
+            </div>
+        </div>
+
+        <div class="learn-divider"></div>
+
+        <div class="learn-section">
+            <p class="learn-para" style="color:#888;">Ready to run a simulation? <a href="sim.html" style="color:#0b5190; font-weight:600;">Go to the Simulator →</a></p>
+        </div>
+
+    </div>
+
+
+    <footer id='site-footer'>
+        <a href='mailto:lucamarsura@pmad-sim.org'><img src='images/email.png' class='footer-icon' alt='Email'></a>
+        <a href='https://www.linkedin.com/in/luca-marsura' target='_blank'><img src='images/linkedin.png' class='footer-icon' alt='LinkedIn'></a>
+        <a href='https://www.youtube.com/@PMADSim' target='_blank'><img src='images/youtube.png' class='footer-icon' alt='YouTube'></a>
+        <a href='tel:+15863511431'><img src='images/phone.png' class='footer-icon' alt='Phone'></a>
+    </footer>
+</body>
+</html>
