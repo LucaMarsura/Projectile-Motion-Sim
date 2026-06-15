@@ -48,10 +48,10 @@ def select_den():
 
 def pick_variables():
     true_iheight = round(random.uniform(0, 20), 1)
-    if random.ranint(0,100) < 80:
+    if random.randint(0, 100) < 80:
         true_gravity = 9.81
     else:
-        round(random.uniform(1, 20), 2)
+        true_gravity = round(random.uniform(1, 20), 2)
     true_iangle = round(random.uniform(10, 80), 0)
     true_ivelocity = round(random.uniform(5, 40), 1)
 
