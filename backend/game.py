@@ -61,7 +61,7 @@ def create_graph(gametype, target, list_height=None, list_distance=None):
     deviation = target * 0.02
 
     if gametype == "distance":
-        ax.axvspan(target - deviation, target + deviation, ymin=0, ymax=0.06, color="#0b5190", alpha=0.25, label="Target Zone (±2%)")
+        ax.axvspan(target - deviation, target + deviation, ymin=0, ymax=0.03, color="#0b5190", alpha=0.25, label="Target Zone (±2%)")
         ax.axvline(target, color="#0b5190", linewidth=1.5, linestyle="--", alpha=0.5)
     elif gametype == "maxheight":
         ax.axhspan(target - deviation, target + deviation, color="#0b5190", alpha=0.25, label="Target Zone (±2%)")
@@ -70,7 +70,7 @@ def create_graph(gametype, target, list_height=None, list_distance=None):
     if list_height is not None and list_distance is not None:
         ax.plot(list_distance, list_height, color="#e05c2a", linewidth=2, label="Your Trajectory")
 
-    ax.set_xlim(left=0)
+    ax.set_xlim(left=0, right=target * 1.15 if gametype == "distance" else None)
     if gametype == "maxheight":
         ax.set_ylim(bottom=0, top=target * 1.4)
     else:
