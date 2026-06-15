@@ -21,23 +21,16 @@ def simulation(true_ivelocity, true_iheight, true_iangle, true_gravity, true_mas
 
     while float(instheight) > 0:
 
-        #vertical velocity
-        #a = -(Fd + Fg)/m
-        #Fd = 1/2 p A Cd v^2
-        #Fg = mg
         instvelocity_y -= ((true_mass * true_gravity) + (1 / 2 * true_density * true_cd * true_area * abs(instvelocity_y) * instvelocity_y)) / true_mass * 0.001
-        
-        #horizontal velocity
-        #a = -(Fd)/m
+
         instvelocity_x -= (1 / 2 * true_density * true_cd * true_area * abs(instvelocity_x) * instvelocity_x) / true_mass * 0.001
-        
-        #(delta v = a x t = 0.001a)
+
 
         instvelocity = math.sqrt(instvelocity_x ** 2 + instvelocity_y ** 2)
         instheight += instvelocity_y * 0.001
         instdistance += instvelocity_x * 0.001
         insttime += 0.001
-        
+
         instangle = math.atan2(instvelocity_y, instvelocity_x) * (360 / (2 * math.pi))
         list_height.append(float(instheight))
         list_distance.append(float(instdistance))

@@ -6,7 +6,6 @@ from energyanalysis import energy
 from trajectorygraphing import graph_trajectory
 
 def main():
-    #inputs
     data = json.loads(sys.stdin.read())
 
     true_ivelocity = float(data["ivelocity"]) if data["ivelocity"] != "" else ""
@@ -45,7 +44,6 @@ def main():
         "denpreset_moltenmetal": {"density": 6980}
     }
 
-    #preset selection
     drag_selected = data.get("aeropreset", "")
     density_selected = data.get("denpreset", "")
 
@@ -69,7 +67,6 @@ def main():
     nindep = 0
     ndep = 0
 
-    #missing/given variables
     if bool(true_ivelocity):
         nindep += 1
     if bool(true_iheight):
@@ -114,10 +111,8 @@ def main():
     else:
         result_ivelocity, result_iheight, result_iangle, result_gravity, uncertainty, iterations = iterative_solve(true_ivelocity, true_iheight, true_iangle, true_gravity, true_distance, true_maxheight, true_time, true_fvelocity, true_mass, true_density, true_cd, true_area, False, depvariable)
 
-    #final sim with all indep parameters
     list_height, list_distance, list_time, list_velocity, list_angle = simulation(result_ivelocity, result_iheight, result_iangle, result_gravity, true_mass, true_density, true_cd, true_area)
 
-    #outputs
     result_distance = list_distance[-1]
     result_maxheight = max(list_height)
     result_time = list_time[-1]
@@ -144,7 +139,6 @@ def main():
         f"Ambient Gravity: {round(result_gravity, 3)} meters/second squared",
     ]
 
-    #outputs
     print(json.dumps({"prints": txt_main + txt_energy, "graph1": traj_graph, "graph2": graph_energy}))
 
 

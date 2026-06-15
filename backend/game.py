@@ -33,7 +33,6 @@ density_presets = {
     "denpreset_moltenmetal": {"density": 6980}
 }
 
-#parameter selection
 def select_aero():
     return random.choices(
         ["aeropreset_baseball", "aeropreset_football", "aeropreset_ppball", "aeropreset_soccerball", "aeropreset_tennisball", "aeropreset_paperplane", "aeropreset_paperball", "aeropreset_golfball", "aeropreset_basketball", "aeropreset_bowlingball", "aeropreset_frisbee", "aeropreset_arrow", "aeropreset_spear", "aeropreset_shuttlecock"],

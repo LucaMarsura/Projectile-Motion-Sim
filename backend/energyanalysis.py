@@ -30,7 +30,6 @@ def energy(list_time, list_distance, list_height, list_velocity, true_mass, resu
     result_ppotential = list_epotential[peak_index]
     result_ptotal = result_pkinetic + result_ppotential
 
-    #energy dissipation, accounting for small rounding errors
     result_edissipated = result_itotal - result_ftotal
     if result_edissipated < 0:
         result_edissipated = 0
@@ -49,7 +48,6 @@ def energy(list_time, list_distance, list_height, list_velocity, true_mass, resu
     graph_energy = base64.b64encode(buf.read()).decode("utf-8")
     plt.close()
 
-    #output
     txt_result = [
         "Energy Analysis:",
         f"Initial: {round(result_itotal, 3)} J  ({round(result_ikinetic, 3)} J Kinetic / {round(result_ipotential, 3)} J Gravitational)",
