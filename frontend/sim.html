@@ -129,28 +129,45 @@
                     </div>
                 </div>
                 <div class="section">
-                    <div class="section-label">Dependent Variable</div>
-                    <div class="radio-row">
-                        <label><input id="radio-distance"  type="radio" name="dependent-var" value="radio-distance">  Distance</label>
-                        <label><input id="radio-maxheight" type="radio" name="dependent-var" value="radio-maxheight"> Peak Height</label>
-                        <label><input id="radio-time"      type="radio" name="dependent-var" value="radio-time">      Time</label>
-                        <label><input id="radio-fvelocity" type="radio" name="dependent-var" value="radio-fvelocity"> Final Velocity</label>
+                    <div class="section-label-row">
+                        <span class="section-label">Variable Inference</span>
+                        <label class="toggle">
+                            <input id="check-inference" type="checkbox">
+                            <span class="toggle-track"></span>
+                        </label>
                     </div>
-                    <div id="dependent-section" style="display:none;">
-                        <div class="slider-header">
-                            <span class="slider-name" id="dependent-name">Value</span>
-                            <span class="slider-readout" id="dependent-readout"> - </span>
+                    <div id="inference-wrap" style="display:none;">
+                        <select id="dep-var-select" class="dropdown">
+                            <option value="" disabled selected>Select variable to solve for</option>
+                            <option value="radio-distance">Distance</option>
+                            <option value="radio-maxheight">Peak Height</option>
+                            <option value="radio-time">Time of Flight</option>
+                            <option value="radio-fvelocity">Final Velocity</option>
+                        </select>
+                        <div id="dependent-section" style="display:none;">
+                            <div class="slider-header">
+                                <span class="slider-name" id="dependent-name">Target Value</span>
+                                <span class="slider-readout" id="dependent-readout">10.0</span>
+                            </div>
+                            <input id="dependent-slider" type="range" min="0" max="50" value="10" step="0.1" class="slider">
                         </div>
-                        <input id="dependent-slider" type="range" class="slider" min="0" max="50" value="10" step="0.1">
+                    </div>
+                    <div style="display:none;">
+                        <input id="radio-distance"  type="radio" name="dependent-var" value="radio-distance">
+                        <input id="radio-maxheight" type="radio" name="dependent-var" value="radio-maxheight">
+                        <input id="radio-time"      type="radio" name="dependent-var" value="radio-time">
+                        <input id="radio-fvelocity" type="radio" name="dependent-var" value="radio-fvelocity">
                     </div>
                 </div>
                 <div class="section">
-                    <div class="section-label">Drag Parameters</div>
-                    <div class="radio-row">
-                        <label><input id="radio-drag-preset" type="radio" name="drag-option"> Preset</label>
-                        <label><input id="radio-drag-custom" type="radio" name="drag-option"> Custom</label>
+                    <div class="section-label-row">
+                        <span class="section-label">Custom Drag</span>
+                        <label class="toggle">
+                            <input id="check-drag-custom" type="checkbox">
+                            <span class="toggle-track"></span>
+                        </label>
                     </div>
-                      <div id="drag-preset-wrap" style="display:none;">
+                    <div id="drag-preset-wrap" style="display:none;">
                         <select id="drag-preset-select" class="dropdown">
                             <option value="" disabled selected>Select a preset</option>
                             <option value="aeropreset_baseball">Baseball</option>
@@ -167,9 +184,11 @@
                             <option value="aeropreset_arrow">Arrow</option>
                             <option value="aeropreset_spear">Spear</option>
                             <option value="aeropreset_shuttlecock">Badminton Shuttlecock</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </div>
-                    <div id="drag-custom-wrap">
+                    <div id="drag-custom-wrap" style="display:none;">
+                        <span class="custom-section-label">Custom Values</span>
                         <div class="slider-header">
                             <span class="slider-name">Mass</span>
                             <span class="slider-readout" id="mass-label">0.1450 kg</span>
@@ -188,14 +207,17 @@
                     </div>
                 </div>
                 <div class="section">
-                    <div class="section-label">Density</div>
-                    <div class="radio-row">
-                        <label><input id="radio-density-preset" type="radio" name="density-option"> Preset</label>
-                        <label><input id="radio-density-custom" type="radio" name="density-option"> Custom</label>
+                    <div class="section-label-row">
+                        <span class="section-label">Custom Density</span>
+                        <label class="toggle">
+                            <input id="check-density-custom" type="checkbox">
+                            <span class="toggle-track"></span>
+                        </label>
                     </div>
                     <div id="density-preset-wrap" style="display:none;">
                         <select id="density-preset-select" class="dropdown">
                             <option value="" disabled selected>Select a preset</option>
+                            <option value="custom">Custom</option>
                             <option value="denpreset_air">Air</option>
                             <option value="denpreset_vacuum">Vacuum</option>
                             <option value="denpreset_water">Water</option>
@@ -203,14 +225,26 @@
                             <option value="denpreset_highaltair">High-Altitude Air</option>
                             <option value="denpreset_syrup">Syrup</option>
                             <option value="denpreset_moltenmetal">Molten Metal</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </div>
-                    <div id="density-custom-wrap">
+                    <div id="density-custom-wrap" style="display:none;">
+                        <span class="custom-section-label">Custom Values</span>
                         <div class="slider-header">
                             <span class="slider-name">Fluid Density</span>
                             <span class="slider-readout" id="density-label">1.2250 kg/m³</span>
                         </div>
                         <input id="density" type="range" min="0.0001" max="7000" step="0.0001" value="1.225" class="slider" disabled>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-label-row">
+                        <span class="section-label">Energy Analysis</span>
+                        <label class="toggle">
+                            <input id="check-energy" type="checkbox">
+                            <span class="toggle-track"></span>
+                        </label>
                     </div>
                 </div>
 
@@ -237,20 +271,27 @@
                     <p id="error-message"></p>
                 </div>
                 <div id="results-content">
-                    <div id="stats-panel">
-                        <div class="panel-heading">Trajectory Results</div>
-                        <div id="trajectory-results" class="result-table"></div>
-                        <div class="panel-heading">Parameters</div>
-                        <div id="parameter-results" class="result-table"></div>
-                    </div>
-                    <div id="trajectory-section">
-                        <div class="panel-heading">Trajectory</div>
-                        <img id="trajectory-graph" alt="Trajectory Graph">
+                    <div id="top-results">
+                        <div id="stats-panel">
+                            <div class="panel-heading">Trajectory Results</div>
+                            <div id="trajectory-results" class="result-table"></div>
+                            <div class="panel-heading">Parameters</div>
+                            <div id="parameter-results" class="result-table"></div>
+                        </div>
+                        <div id="trajectory-section">
+                            <div class="panel-heading">Trajectory</div>
+                            <img id="trajectory-graph" alt="Trajectory Graph">
+                        </div>
                     </div>
                     <div id="energy-section">
-                        <div class="panel-heading">Energy Analysis</div>
-                        <div id="energy-results" class="result-table"></div>
-                        <img id="energy-graph" alt="Energy Graph">
+                        <div id="energy-left">
+                            <div class="panel-heading">Energy Analysis</div>
+                            <div id="energy-results" class="result-table"></div>
+                        </div>
+                        <div id="energy-right">
+                            <div class="panel-heading">Energy Graph</div>
+                            <img id="energy-graph" alt="Energy Graph">
+                        </div>
                     </div>
                 </div>
                 <div id="results-guide-link">
@@ -357,7 +398,42 @@
         makeReadoutEditable("cd-label",         "cd",               "",       3);
         makeReadoutEditable("area-label",       "area",             "m²",     5);
         makeReadoutEditable("density-label",    "density",          "kg/m³",  4);
-        makeReadoutEditable("dependent-readout","dependent-slider", "",       1);
+
+        (function() {
+            const label = document.getElementById("dependent-readout");
+            const slider = document.getElementById("dependent-slider");
+            label.style.cursor = "pointer";
+            label.addEventListener("click", function() {
+                if (label.querySelector("input")) return;
+                const config = depVarConfig[document.getElementById("dep-var-select").value];
+                if (!config) return;
+                const input = document.createElement("input");
+                input.type = "number";
+                input.value = parseFloat(slider.value);
+                input.step = slider.step;
+                input.className = "readout-edit";
+                label.textContent = "";
+                label.appendChild(input);
+                input.focus();
+                input.select();
+                let committed = false;
+                function commit() {
+                    if (committed) return;
+                    committed = true;
+                    let val = parseFloat(input.value);
+                    if (isNaN(val)) val = parseFloat(slider.value);
+                    val = Math.min(Math.max(val, parseFloat(slider.min)), parseFloat(slider.max));
+                    slider.value = val;
+                    label.textContent = val.toFixed(1) + " " + config.unit;
+                    slider.dispatchEvent(new Event("input"));
+                }
+                input.addEventListener("blur", commit);
+                input.addEventListener("keydown", function(e) {
+                    if (e.key === "Enter") { e.preventDefault(); commit(); }
+                    if (e.key === "Escape") { committed = true; label.textContent = parseFloat(slider.value).toFixed(1) + " " + config.unit; }
+                });
+            });
+        })();
 
         function makeRow(label, value) {
             const row = document.createElement("div");
@@ -386,77 +462,104 @@
             if (el) updateLabel(id, el.value);
         });
 
+        function activateDepVar(radioValue) {
+            const config = depVarConfig[radioValue];
+            if (!config) return;
+            depVarSliderId = config.id;
+            const section = document.getElementById("dependent-section");
+            const slider = document.getElementById("dependent-slider");
+            const midVal = ((config.min + config.max) / 2).toFixed(1);
+            section.style.display = "block";
+            slider.min = config.min;
+            slider.max = config.max;
+            slider.step = config.step;
+            slider.value = midVal;
+            document.getElementById("dependent-name").textContent = config.name;
+            document.getElementById("dependent-readout").textContent = midVal + " " + config.unit;
+            slider.oninput = function() {
+                document.getElementById("dependent-readout").textContent = parseFloat(this.value).toFixed(1) + " " + config.unit;
+            };
+        }
+
         document.querySelectorAll("input[name='dependent-var']").forEach(function(radio) {
-            radio.addEventListener("change", function() {
-                const config = depVarConfig[this.value];
-                if (!config) return;
-
-                depVarSliderId = config.id;
-
-                const section = document.getElementById("dependent-section");
-                const slider = document.getElementById("dependent-slider");
-
-                section.style.display = "block";
-                slider.min = config.min;
-                slider.max = config.max;
-                slider.step = config.step;
-                slider.value = (config.min + config.max) / 2;
-
-                document.getElementById("dependent-name").textContent = config.name;
-                document.getElementById("dependent-readout").textContent = parseFloat(slider.value).toFixed(1) + " " + config.unit;
-
-                slider.oninput = function() {
-                    document.getElementById("dependent-readout").textContent = parseFloat(slider.value).toFixed(1) + " " + config.unit;
-                };
-            });
+            radio.addEventListener("change", function() { activateDepVar(this.value); });
         });
 
-        document.querySelectorAll("input[name='drag-option']").forEach(function(radio) {
-            radio.addEventListener("change", function() {
-                const isPreset = (this.id === "radio-drag-preset");
-                document.getElementById("drag-preset-wrap").style.display = isPreset ? "block" : "none";
-                document.getElementById("mass").disabled = isPreset;
-                document.getElementById("cd").disabled = isPreset;
-                document.getElementById("area").disabled = isPreset;
-            });
+        document.getElementById("check-inference").addEventListener("change", function() {
+            document.getElementById("inference-wrap").style.display = this.checked ? "flex" : "none";
+            if (!this.checked) {
+                document.getElementById("dependent-section").style.display = "none";
+                document.getElementById("dep-var-select").value = "";
+                depVarSliderId = null;
+                document.querySelectorAll("input[name='dependent-var']").forEach(function(r) { r.checked = false; });
+            }
         });
 
-        document.querySelectorAll("input[name='density-option']").forEach(function(radio) {
-            radio.addEventListener("change", function() {
-                const isPreset = (this.id === "radio-density-preset");
-                document.getElementById("density-preset-wrap").style.display = isPreset ? "block" : "none";
-                document.getElementById("density").disabled = isPreset;
-            });
+        document.getElementById("dep-var-select").addEventListener("change", function() {
+            const radio = document.getElementById(this.value);
+            if (radio) { radio.checked = true; radio.dispatchEvent(new Event("change")); }
+        });
+
+
+        document.getElementById("check-drag-custom").addEventListener("change", function() {
+            const on = this.checked;
+            document.getElementById("drag-preset-wrap").style.display = on ? "block" : "none";
+            document.getElementById("drag-custom-wrap").style.display = "none";
+            document.getElementById("mass").disabled = true;
+            document.getElementById("cd").disabled = true;
+            document.getElementById("area").disabled = true;
+        });
+
+        document.getElementById("check-density-custom").addEventListener("change", function() {
+            const on = this.checked;
+            document.getElementById("density-preset-wrap").style.display = on ? "block" : "none";
+            document.getElementById("density-custom-wrap").style.display = "none";
+            document.getElementById("density").disabled = true;
         });
 
         document.getElementById("drag-preset-select").addEventListener("change", function() {
-            const preset = dragPresets[this.value];
-            if (!preset) return;
-            ["mass", "cd", "area"].forEach(function(id) {
-                document.getElementById(id).value = preset[id];
-                updateLabel(id, preset[id]);
-            });
+            const isCustom = this.value === "custom";
+            document.getElementById("drag-custom-wrap").style.display = isCustom ? "block" : "none";
+            document.getElementById("mass").disabled = !isCustom;
+            document.getElementById("cd").disabled = !isCustom;
+            document.getElementById("area").disabled = !isCustom;
+            if (!isCustom) {
+                const preset = dragPresets[this.value];
+                if (!preset) return;
+                ["mass", "cd", "area"].forEach(function(id) {
+                    document.getElementById(id).value = preset[id];
+                    updateLabel(id, preset[id]);
+                });
+            }
         });
 
         document.getElementById("density-preset-select").addEventListener("change", function() {
-            const preset = densityPresets[this.value];
-            if (!preset) return;
-            document.getElementById("density").value = preset.density;
-            updateLabel("density", preset.density);
+            const isCustom = this.value === "custom";
+            document.getElementById("density-custom-wrap").style.display = isCustom ? "block" : "none";
+            document.getElementById("density").disabled = !isCustom;
+            if (!isCustom) {
+                const preset = densityPresets[this.value];
+                if (!preset) return;
+                document.getElementById("density").value = preset.density;
+                updateLabel("density", preset.density);
+            }
         });
 
         document.getElementById("parameters").addEventListener("submit", function(e) {
             e.preventDefault();
 
             const depSelected = document.querySelector("input[name='dependent-var']:checked");
-            const dragSelected = document.querySelector("input[name='drag-option']:checked");
-            const densitySelected = document.querySelector("input[name='density-option']:checked");
+            const dragOn = document.getElementById("check-drag-custom").checked;
+            const densityOn = document.getElementById("check-density-custom").checked;
             const indepCount = document.querySelectorAll("input[name='independent-var']:checked").length;
 
-            if (indepCount < 3)                   { alert("Please select at least 3 of 4 independent variables."); return; }
-            if (indepCount === 3 && !depSelected) { alert("Please select a dependent variable when using 3 independent variables."); return; }
-            if (!dragSelected)                    { alert("Please select a drag parameter option."); return; }
-            if (!densitySelected)                 { alert("Please select a density parameter option."); return; }
+            const inferenceOn = document.getElementById("check-inference").checked;
+            if (inferenceOn) {
+                if (indepCount < 3)   { alert("Please select at least 3 independent variables."); return; }
+                if (!depSelected)     { alert("Please select a variable to solve for."); return; }
+            } else {
+                if (indepCount < 4)   { alert("Enable all 4 independent variables, or turn on Variable Inference to solve for one."); return; }
+            }
 
             const data = {};
 
@@ -471,8 +574,10 @@
             data["cd"] = document.getElementById("cd").value;
             data["area"] = document.getElementById("area").value;
             data["density"] = document.getElementById("density").value;
-            data["aeropreset"] = (dragSelected.id === "radio-drag-preset") ? document.getElementById("drag-preset-select").value : "";
-            data["denpreset"] = (densitySelected.id === "radio-density-preset") ? document.getElementById("density-preset-select").value : "";
+            const dragPresetVal = dragOn ? document.getElementById("drag-preset-select").value : "aeropreset_baseball";
+            const denPresetVal = densityOn ? document.getElementById("density-preset-select").value : "denpreset_air";
+            data["aeropreset"] = (dragPresetVal && dragPresetVal !== "custom") ? dragPresetVal : "";
+            data["denpreset"] = (denPresetVal && denPresetVal !== "custom") ? denPresetVal : "";
             data["dep"] = depSelected ? depSelected.value : "";
 
             const btn = document.getElementById("submit-btn");
@@ -507,7 +612,15 @@
             errorBanner.style.display = "none";
             document.getElementById("results-content").style.display = "block";
 
-            document.getElementById("trajectory-graph").src = "data:image/png;base64," + result.graph1;
+            const energyEnabled = document.getElementById("check-energy").checked;
+            document.getElementById("energy-section").style.display = energyEnabled ? "grid" : "none";
+
+            const trajImg = document.getElementById("trajectory-graph");
+            trajImg.onload = function() {
+                const statsH = document.getElementById("stats-panel").offsetHeight;
+                document.getElementById("trajectory-section").style.height = statsH + "px";
+            };
+            trajImg.src = "data:image/png;base64," + result.graph1;
             document.getElementById("energy-graph").src = "data:image/png;base64," + result.graph2;
 
             let section = "traj";
@@ -648,15 +761,18 @@
 
             const dep = p.get("dep");
             if (dep) {
-                const radio = document.querySelector("input[name='dependent-var'][value='" + dep + "']");
+                document.getElementById("check-inference").checked = true;
+                document.getElementById("inference-wrap").style.display = "flex";
+                document.getElementById("dep-var-select").value = dep;
+                const radio = document.getElementById(dep);
                 if (radio) {
                     radio.checked = true;
                     radio.dispatchEvent(new Event("change"));
                     const depv = p.get("depv");
                     if (depv !== null) {
-                        const slider = document.getElementById("dependent-slider");
-                        slider.value = depv;
-                        slider.dispatchEvent(new Event("input"));
+                        const sl = document.getElementById("dependent-slider");
+                        sl.value = depv;
+                        sl.dispatchEvent(new Event("input"));
                     }
                 }
             }
