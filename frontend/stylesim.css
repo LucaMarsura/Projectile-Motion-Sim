@@ -517,14 +517,62 @@ body {
 #drag-custom-wrap .slider + .slider-header,
 #density-custom-wrap .slider + .slider-header { margin-top: 8px; }
 
-.custom-section-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #0b5190;
-    opacity: 0.7;
+.section-label-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
+
+.beta-tag {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: #0b5190;
+    border-radius: 3px;
+    padding: 1px 4px;
+    vertical-align: middle;
+    opacity: 0.75;
+}
+
+.info-tip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ccc;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    cursor: default;
+    flex-shrink: 0;
+}
+
+.tip-box {
+    display: none;
+    position: absolute;
+    right: -8px;
+    top: 20px;
+    width: 200px;
+    background: #1c1c1c;
+    color: #f0f0f0;
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.6;
+    padding: 10px 12px;
+    border-radius: 4px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.info-tip:hover .tip-box,
+.info-tip:focus .tip-box { display: block; }
 
 .readout-edit {
     width: 70px;

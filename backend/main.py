@@ -129,8 +129,15 @@ def main():
         f"Total Time: {round(result_time, 3)} seconds",
         f"Final Speed: {round(result_fvelocity, 3)} meters/second",
         f"Impact Angle: {round(result_fangle, 3)} degrees",
-        f"Iterative Relative Uncertainty (0-1): {round(abs(uncertainty), 8)}",
-        f"Iterations Completed: {iterations}",
+    ]
+
+    if nindep < 4:
+        txt_main += [
+            f"Iterative Relative Uncertainty (0-1): {round(abs(uncertainty), 8)}",
+            f"Iterations Completed: {iterations}",
+        ]
+
+    txt_main += [
         "",
         "Parameters:",
         f"Initial Velocity: {round(result_ivelocity, 3)} meters/second",

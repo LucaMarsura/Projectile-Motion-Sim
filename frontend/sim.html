@@ -130,37 +130,6 @@
                 </div>
                 <div class="section">
                     <div class="section-label-row">
-                        <span class="section-label">Variable Inference</span>
-                        <label class="toggle">
-                            <input id="check-inference" type="checkbox">
-                            <span class="toggle-track"></span>
-                        </label>
-                    </div>
-                    <div id="inference-wrap" style="display:none;">
-                        <select id="dep-var-select" class="dropdown">
-                            <option value="" disabled selected>Select variable to solve for</option>
-                            <option value="radio-distance">Distance</option>
-                            <option value="radio-maxheight">Peak Height</option>
-                            <option value="radio-time">Time of Flight</option>
-                            <option value="radio-fvelocity">Final Velocity</option>
-                        </select>
-                        <div id="dependent-section" style="display:none;">
-                            <div class="slider-header">
-                                <span class="slider-name" id="dependent-name">Target Value</span>
-                                <span class="slider-readout" id="dependent-readout">10.0</span>
-                            </div>
-                            <input id="dependent-slider" type="range" min="0" max="50" value="10" step="0.1" class="slider">
-                        </div>
-                    </div>
-                    <div style="display:none;">
-                        <input id="radio-distance"  type="radio" name="dependent-var" value="radio-distance">
-                        <input id="radio-maxheight" type="radio" name="dependent-var" value="radio-maxheight">
-                        <input id="radio-time"      type="radio" name="dependent-var" value="radio-time">
-                        <input id="radio-fvelocity" type="radio" name="dependent-var" value="radio-fvelocity">
-                    </div>
-                </div>
-                <div class="section">
-                    <div class="section-label-row">
                         <span class="section-label">Custom Drag</span>
                         <label class="toggle">
                             <input id="check-drag-custom" type="checkbox">
@@ -236,6 +205,40 @@
                     </div>
                 </div>
 
+                <div class="section">
+                    <div class="section-label-row">
+                        <span class="section-label-group">
+                            <span class="section-label">Variable Inference <span class="beta-tag">beta</span></span>
+                            <span class="info-tip" tabindex="0">?<span class="tip-box">Solves for one unknown launch variable (velocity, height, angle, or gravity) given a known outcome (distance, peak height, time, or final velocity). Uses iterative simulation, converging to 0.1% relative uncertainty.</span></span>
+                        </span>
+                        <label class="toggle">
+                            <input id="check-inference" type="checkbox">
+                            <span class="toggle-track"></span>
+                        </label>
+                    </div>
+                    <div id="inference-wrap" style="display:none;">
+                        <select id="dep-var-select" class="dropdown">
+                            <option value="" disabled selected>Select variable to solve for</option>
+                            <option value="radio-distance">Distance</option>
+                            <option value="radio-maxheight">Peak Height</option>
+                            <option value="radio-time">Time of Flight</option>
+                            <option value="radio-fvelocity">Final Velocity</option>
+                        </select>
+                        <div id="dependent-section" style="display:none;">
+                            <div class="slider-header">
+                                <span class="slider-name" id="dependent-name">Target Value</span>
+                                <span class="slider-readout" id="dependent-readout">10.0</span>
+                            </div>
+                            <input id="dependent-slider" type="range" min="0" max="50" value="10" step="0.1" class="slider">
+                        </div>
+                    </div>
+                    <div style="display:none;">
+                        <input id="radio-distance"  type="radio" name="dependent-var" value="radio-distance">
+                        <input id="radio-maxheight" type="radio" name="dependent-var" value="radio-maxheight">
+                        <input id="radio-time"      type="radio" name="dependent-var" value="radio-time">
+                        <input id="radio-fvelocity" type="radio" name="dependent-var" value="radio-fvelocity">
+                    </div>
+                </div>
                 <div class="section">
                     <div class="section-label-row">
                         <span class="section-label">Energy Analysis</span>
@@ -622,6 +625,7 @@
             document.getElementById("energy-graph").src = "data:image/png;base64," + result.graph2;
 
             let section = "traj";
+            const inferenceOn = document.getElementById("check-inference").checked;
 
             result.prints.forEach(function(line) {
                 if (line === "Trajectory Data:")  { section = "traj";   return; }
@@ -632,6 +636,8 @@
                 const colon = line.indexOf(":");
                 const label = line.slice(0, colon).trim();
                 const val = line.slice(colon + 1).trim();
+
+                if (!inferenceOn && (label === "Iterative Relative Uncertainty (0-1)" || label === "Iterations Completed")) return;
 
                 if (section === "traj")   trajResults.appendChild(makeRow(label, val));
                 if (section === "param")  paramResults.appendChild(makeRow(label, val));
