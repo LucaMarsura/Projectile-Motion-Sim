@@ -106,7 +106,7 @@ def set_game(body):
     if gametype == "distance":
         target = list_distance[-1]
     else:
-        max(list_height)
+        target = max(list_height)
 
     if gametype == "maxheight" and (max(list_height) - true_iheight) < 2.0:
         gametype = "distance"
