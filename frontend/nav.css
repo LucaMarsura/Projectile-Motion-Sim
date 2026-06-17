@@ -58,6 +58,16 @@ nav ul li:first-child {
 
 #site-footer a:hover { opacity: 1; }
 
+#footer-privacy {
+    margin-left: auto;
+    font-size: 11px;
+    font-family: "IBM Plex Sans", sans-serif;
+    color: #aaa;
+    text-decoration: none;
+    opacity: 1;
+}
+#footer-privacy:hover { color: #0b5190; opacity: 1; }
+
 .footer-icon {
     height: 20px;
     width: auto;
