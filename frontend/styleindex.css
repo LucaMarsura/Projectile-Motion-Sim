@@ -106,49 +106,62 @@ a#game-cta {
     color: #6b7280;
 }
 
-.feature-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    padding: 40px 30px;
-    align-items: stretch;
+#stats-strip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 60px;
+    background: #fff;
+    border-top: 1.5px solid #e5e5e5;
+    border-bottom: 1.5px solid #e5e5e5;
+    margin: 20px 0;
+    gap: 0;
 }
 
-.feature-card {
+.stat-item {
     display: flex;
     flex-direction: column;
-    border: 1.5px solid #0b5190;
-    border-radius: 12px;
-    padding: 16px;
-    background: #fff;
-}
-
-.feature-card-header {
-    display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
+    gap: 6px;
+    flex: 1;
 }
 
-.feature-card-icon {
-    height: 28px;
-    width: 28px;
-    flex-shrink: 0;
-}
-
-.feature-card-title {
-    font-size: 14px;
+.stat-number {
+    font-size: 36px;
     font-weight: 800;
     color: #0b5190;
-    margin: 0;
+    line-height: 1;
+    letter-spacing: -0.02em;
 }
 
-.feature-card-desc {
+.stat-beta {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: #0b5190;
+    border-radius: 3px;
+    padding: 1px 4px;
+    vertical-align: middle;
+    opacity: 0.75;
+}
+
+.stat-label {
     font-size: 12px;
     font-weight: 500;
-    color: #36454f;
-    margin: 0;
-    line-height: 1.6;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+.stat-divider {
+    width: 1.5px;
+    height: 48px;
+    background: #e5e5e5;
+    flex-shrink: 0;
 }
 
 .list {
@@ -201,8 +214,18 @@ a#game-cta {
 }
 
 @media (max-width: 900px) {
-    .feature-cards {
-        grid-template-columns: repeat(2, 1fr);
+    #stats-strip {
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 32px 30px;
+    }
+
+    .stat-divider {
+        display: none;
+    }
+
+    .stat-item {
+        flex: 0 0 calc(33% - 16px);
     }
 }
 
@@ -234,13 +257,17 @@ a#game-cta {
         padding: 0 16px;
     }
 
-    .feature-cards {
-        grid-template-columns: 1fr;
-        padding: 16px;
+    #stats-strip {
+        padding: 24px 16px;
+        gap: 16px;
     }
 
-    .feature-card-icon {
-        display: none;
+    .stat-item {
+        flex: 0 0 calc(50% - 8px);
+    }
+
+    .stat-number {
+        font-size: 28px;
     }
 
     .list {
