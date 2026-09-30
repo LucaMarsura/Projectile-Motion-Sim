@@ -52,6 +52,17 @@ body {
     max-width: 680px;
 }
 
+.learn-list {
+    font-size: 16px;
+    color: #36454f;
+    line-height: 1.75;
+    margin: 0 0 16px;
+    padding-left: 22px;
+    max-width: 660px;
+}
+
+.learn-list li { margin-bottom: 8px; }
+
 .eq-block {
     background: #f0f4f8;
     border-left: 3px solid #0b5190;

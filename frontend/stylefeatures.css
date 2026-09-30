@@ -25,6 +25,11 @@ body {
     line-height: 1.4;
 }
 
+/* Items have no numbers, so the dividers align with the text */
+.divider {
+    margin-left: 0;
+}
+
 @media (max-width: 600px) {
     #top {
         padding: 32px 20px 28px;

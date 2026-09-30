@@ -170,6 +170,19 @@ body {
 
 .dropdown:focus { border-color: #0b5190; }
 
+.preset-note {
+    margin: 8px 0 0;
+    padding: 6px 8px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #7a5a00;
+    background: #fff8e1;
+    border-left: 3px solid #e0b000;
+    border-radius: 2px;
+}
+
+.preset-note a { color: #0b5190; font-weight: 600; }
+
 #inference-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 20px; }
 
 .dep-input-wrap { display: flex; align-items: center; gap: 4px; }

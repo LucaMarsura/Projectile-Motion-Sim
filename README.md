@@ -1,6 +1,6 @@
 # PMADS - Projectile Motion and Drag Simulator
 
-PMADS is a web application modelling projectile motion under various aerodynamic conditions. Twelve variables can be tweaked through user-controlled sliders to view custom trajectories,
+PMADS is a web application modelling projectile motion under various aerodynamic conditions. Eight variables can be tweaked through user-controlled sliders to view custom trajectories,
 
 ## What it does
 

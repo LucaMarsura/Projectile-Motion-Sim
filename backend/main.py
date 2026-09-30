@@ -133,7 +133,7 @@ def main():
 
     if nindep < 4:
         txt_main += [
-            f"Iterative Relative Uncertainty (0-1): {round(abs(uncertainty), 8)}",
+            f"Solver Relative Residual (0-1): {round(abs(uncertainty), 8)}",
             f"Iterations Completed: {iterations}",
         ]
 

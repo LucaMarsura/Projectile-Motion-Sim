@@ -33,9 +33,9 @@
     <div id="main">
         <img src="images/trajectory.png" id="img-main" alt="Trajectory diagram">
         <div id="hero-text">
-            <h1 id="hero-title">Projectile<br>Motion Sim</h1>
+            <h1 id="hero-title">The PMAD<br>Simulation</h1>
             <h2 id="hero-subtitle">Visualize. Interact. Comprehend.</h2>
-            <p id="hero-desc">This python-programmed simulator models real-world motion of launched projectiles. Twelve user-controlled variables affect the trajectory of the projectile.</p>
+            <p id="hero-desc">A free projectile motion simulator for high school and introductory college physics. Adjust eight launch variables and see how air resistance changes a trajectory compared with ideal, drag-free motion.</p>
         </div>
     </div>
 
@@ -59,27 +59,35 @@
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-            <span class="stat-number">12</span>
-            <span class="stat-label">Launch Variables</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
             <span class="stat-number">1 kHz</span>
             <span class="stat-label">Integration Rate</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-            <span class="stat-number">0.1%</span>
-            <span class="stat-label">Variable Inference<br>Uncertainty Target <span class="stat-beta">beta</span></span>
+            <span class="stat-number">8</span>
+            <span class="stat-label">Launch Variables</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">14</span>
+            <span class="stat-label">Aerodynamic Profiles</span>
         </div>
     </div>
 
+    <section id="accuracy">
+        <div id="accuracy-text">
+            <h2 id="accuracy-title">Accuracy</h2>
+            <p class="accuracy-para">To validate the simulation, a foam ball was drop-kicked and its flight recorded on video. Its position was then tracked frame by frame. The graph compares the measured trajectory with two predictions from the same launch conditions: the PMADS simulation, which models aerodynamic drag, and an ideal kinematic model, which ignores air resistance.</p>
+            <p class="accuracy-para">The results show how large the effect of drag is and how well PMADS accounts for it. Across 39 matched points, the PMADS trajectory has a root-mean-square error (RMSE) of <strong>0.21&nbsp;m</strong> against the measured data, compared with <strong>1.34&nbsp;m</strong> for the ideal model. The ideal model overestimates the range by roughly 3.5&nbsp;m; PMADS lands within about 0.3&nbsp;m of the measured range. This remaining deviation is likely due to fluid-dynamic effects the model does not capture, such as spin or airflow around the ball, and to assumptions about the ball's drag coefficient.</p>
+            <p class="accuracy-para accuracy-note">PMADS is intended for education, exploration, and hobby use. While it closely reproduces real-world behavior, it has not been certified or independently validated, and it should not be relied upon for professional, research, engineering, or other institutional purposes.</p>
+        </div>
+        <img src="images/trajectory_accuracy.png" id="accuracy-img" alt="Graph of height against horizontal position for a drop-kicked foam ball, comparing measured data with the PMADS drag simulation (RMSE 0.21 m) and an ideal kinematic model (RMSE 1.34 m)">
+    </section>
 
     <footer id='site-footer'>
         <a href='mailto:lucamarsura@pmad-sim.org'><img src='images/email.png' class='footer-icon' alt='Email'></a>
         <a href='https://www.linkedin.com/in/luca-marsura' target='_blank'><img src='images/linkedin.png' class='footer-icon' alt='LinkedIn'></a>
         <a href='https://www.youtube.com/@PMADSim' target='_blank'><img src='images/youtube.png' class='footer-icon' alt='YouTube'></a>
-        <a href='tel:+15863511431'><img src='images/phone.png' class='footer-icon' alt='Phone'></a>
         <a href='privacy.html' id='footer-privacy'>Privacy</a>
     </footer>
 </body>

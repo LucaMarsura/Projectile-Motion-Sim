@@ -140,22 +140,27 @@
                     <div id="drag-preset-wrap" style="display:none;">
                         <select id="drag-preset-select" class="dropdown">
                             <option value="" disabled selected>Select a preset</option>
-                            <option value="aeropreset_baseball">Baseball</option>
-                            <option value="aeropreset_football">Football</option>
-                            <option value="aeropreset_ppball">Ping Pong Ball</option>
-                            <option value="aeropreset_tennisball">Tennis Ball</option>
-                            <option value="aeropreset_soccerball">Soccer Ball</option>
-                            <option value="aeropreset_paperplane">Paper Plane</option>
-                            <option value="aeropreset_paperball">Paper Ball</option>
-                            <option value="aeropreset_golfball">Golf Ball</option>
-                            <option value="aeropreset_basketball">Basketball</option>
-                            <option value="aeropreset_bowlingball">Bowling Ball</option>
-                            <option value="aeropreset_frisbee">Frisbee</option>
-                            <option value="aeropreset_arrow">Arrow</option>
-                            <option value="aeropreset_spear">Spear</option>
-                            <option value="aeropreset_shuttlecock">Badminton Shuttlecock</option>
+                            <optgroup label="Balls">
+                                <option value="aeropreset_baseball">Baseball</option>
+                                <option value="aeropreset_football">Football</option>
+                                <option value="aeropreset_ppball">Ping Pong Ball</option>
+                                <option value="aeropreset_tennisball">Tennis Ball</option>
+                                <option value="aeropreset_soccerball">Soccer Ball</option>
+                                <option value="aeropreset_paperball">Paper Ball</option>
+                                <option value="aeropreset_golfball">Golf Ball</option>
+                                <option value="aeropreset_basketball">Basketball</option>
+                                <option value="aeropreset_bowlingball">Bowling Ball</option>
+                            </optgroup>
+                            <optgroup label="Lift or orientation dependent (illustrative)">
+                                <option value="aeropreset_paperplane">Paper Plane</option>
+                                <option value="aeropreset_frisbee">Frisbee</option>
+                                <option value="aeropreset_arrow">Arrow</option>
+                                <option value="aeropreset_spear">Spear</option>
+                                <option value="aeropreset_shuttlecock">Badminton Shuttlecock</option>
+                            </optgroup>
                             <option value="custom">Custom</option>
                         </select>
+                        <p class="preset-note" id="drag-preset-note" style="display:none;">Illustrative only. This object's real flight depends on lift, orientation, or spin, which the model does not include. <a href="learn.html#limits">Model limits</a></p>
                     </div>
                     <div id="drag-custom-wrap" style="display:none;">
                         <div class="slider-header">
@@ -186,16 +191,20 @@
                     <div id="density-preset-wrap" style="display:none;">
                         <select id="density-preset-select" class="dropdown">
                             <option value="" disabled selected>Select a preset</option>
-                            <option value="custom">Custom</option>
-                            <option value="denpreset_air">Air</option>
-                            <option value="denpreset_vacuum">Vacuum</option>
-                            <option value="denpreset_water">Water</option>
-                            <option value="denpreset_oil">Oil</option>
-                            <option value="denpreset_highaltair">High-Altitude Air</option>
-                            <option value="denpreset_syrup">Syrup</option>
-                            <option value="denpreset_moltenmetal">Molten Metal</option>
+                            <optgroup label="Gases">
+                                <option value="denpreset_air">Air</option>
+                                <option value="denpreset_highaltair">High-Altitude Air</option>
+                                <option value="denpreset_vacuum">Vacuum</option>
+                            </optgroup>
+                            <optgroup label="Liquids (illustrative)">
+                                <option value="denpreset_water">Water</option>
+                                <option value="denpreset_oil">Oil</option>
+                                <option value="denpreset_syrup">Syrup</option>
+                                <option value="denpreset_moltenmetal">Molten Metal</option>
+                            </optgroup>
                             <option value="custom">Custom</option>
                         </select>
+                        <p class="preset-note" id="density-preset-note" style="display:none;">Illustrative only. In liquids, buoyancy and viscous drag matter a lot, and the model includes neither. A light object that would float will still be shown falling. <a href="learn.html#limits">Model limits</a></p>
                     </div>
                     <div id="density-custom-wrap" style="display:none;">
                         <div class="slider-header">
@@ -210,7 +219,7 @@
                     <div class="section-label-row">
                         <span class="section-label-group">
                             <span class="section-label">Variable Inference <span class="beta-tag">beta</span></span>
-                            <span class="info-tip" tabindex="0">?<span class="tip-box">Solves for one unknown launch variable (velocity, height, angle, or gravity) given a known outcome (distance, peak height, time, or final velocity). Uses iterative simulation, converging to 0.1% relative uncertainty.</span></span>
+                            <span class="info-tip" tabindex="0">?<span class="tip-box">Solves for one unknown launch variable (velocity, height, angle, or gravity) given a known outcome (distance, peak height, time, or final velocity). Uses iterative simulation, stopping once the result is within 0.1% of the target (convergence tolerance). When two launch angles give the same result, the lower angle is returned.</span></span>
                         </span>
                         <label class="toggle">
                             <input id="check-inference" type="checkbox">
@@ -330,6 +339,10 @@
         const densityPresets = {
             denpreset_air: { density: 1.225 }, denpreset_water: { density: 1000 }, denpreset_oil: { density: 870 }, denpreset_vacuum: { density: 0.0001 }, denpreset_highaltair: { density: 0.4 }, denpreset_syrup: { density: 1380 }, denpreset_moltenmetal: { density: 6980 }
         };
+
+        // Presets outside the model's validity (lift/orientation, buoyancy/viscous drag)
+        const illustrativeDrag = ["aeropreset_paperplane", "aeropreset_frisbee", "aeropreset_arrow", "aeropreset_spear", "aeropreset_shuttlecock"];
+        const illustrativeDensity = ["denpreset_water", "denpreset_oil", "denpreset_syrup", "denpreset_moltenmetal"];
 
         const depVarConfig = {
             "radio-distance": { name: "Distance Traveled", id: "distance", min: 0, max: 200, step: 0.1, unit: "m"   }, "radio-maxheight": { name: "Peak Height", id: "maxheight", min: 0, max: 100, step: 0.1, unit: "m"   }, "radio-time": { name: "Time", id: "time", min: 0, max: 30, step: 0.1, unit: "s"   }, "radio-fvelocity": { name: "Final Velocity", id: "fvelocity", min: 0, max: 40, step: 0.1, unit: "m/s" }
@@ -525,6 +538,7 @@
             document.getElementById("mass").disabled = !isCustom;
             document.getElementById("cd").disabled = !isCustom;
             document.getElementById("area").disabled = !isCustom;
+            document.getElementById("drag-preset-note").style.display = illustrativeDrag.includes(this.value) ? "block" : "none";
             if (!isCustom) {
                 const preset = dragPresets[this.value];
                 if (!preset) return;
@@ -539,6 +553,7 @@
             const isCustom = this.value === "custom";
             document.getElementById("density-custom-wrap").style.display = isCustom ? "block" : "none";
             document.getElementById("density").disabled = !isCustom;
+            document.getElementById("density-preset-note").style.display = illustrativeDensity.includes(this.value) ? "block" : "none";
             if (!isCustom) {
                 const preset = densityPresets[this.value];
                 if (!preset) return;
@@ -638,7 +653,7 @@
                 const label = line.slice(0, colon).trim();
                 const val = line.slice(colon + 1).trim();
 
-                if (!inferenceOn && (label === "Iterative Relative Uncertainty (0-1)" || label === "Iterations Completed")) return;
+                if (!inferenceOn && (label === "Solver Relative Residual (0-1)" || label === "Iterations Completed")) return;
 
                 if (section === "traj")   trajResults.appendChild(makeRow(label, val));
                 if (section === "param")  paramResults.appendChild(makeRow(label, val));
@@ -787,8 +802,7 @@
     <footer id='site-footer'>
         <a href='mailto:lucamarsura@pmad-sim.org'><img src='images/email.png' class='footer-icon' alt='Email'></a>
         <a href='https://www.linkedin.com/in/luca-marsura' target='_blank'><img src='images/linkedin.png' class='footer-icon' alt='LinkedIn'></a>
-        <a href='https://www.youtube.com/@PMADSim' target='_blank'><img src='images/youtube.png' class='footer-icon' alt='YouTube'></a>
-        <a href='tel:+15863511431'><img src='images/phone.png' class='footer-icon' alt='Phone'></a>
+        <a href='https://www.youtube.com/@PMADSim' target='_blank'><img src='images/youtube.png' class='footer-icon' alt='YouTube'></a>
         <a href='privacy.html' id='footer-privacy'>Privacy</a>
     </footer>
 </body>

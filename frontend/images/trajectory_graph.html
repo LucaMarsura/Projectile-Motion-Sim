@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drop kick trajectory: measured vs. PMADS</title>
+<style>
+  body { margin: 0; background: #ffffff; color: #1b2230; font-family: "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; }
+  main { max-width: 1000px; margin: 0 auto; padding: 32px 20px 48px; }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+  p.sub { margin: 0 0 20px; color: #5a6475; font-size: 15px; }
+  .wrap { position: relative; width: 100%; aspect-ratio: 16 / 10; }
+  canvas { width: 100%; height: 100%; display: block; }
+  .bar { display: flex; gap: 12px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+  button { font: inherit; font-size: 15px; padding: 9px 18px; border-radius: 6px; border: 1px solid #1f5fc4; background: #1f5fc4; color: #fff; cursor: pointer; }
+  button:hover { background: #184fa6; }
+  button:focus-visible { outline: 3px solid #9cc0f5; outline-offset: 2px; }
+  .stats { color: #5a6475; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Drop kick trajectory: measured vs. predicted</h1>
+  <p class="sub">Nerf 5" foam ball, height against horizontal position</p>
+  <div class="wrap"><canvas id="c"></canvas></div>
+  <div class="bar">
+    <button id="dl">Download PNG</button>
+    <span class="stats" id="stats"></span>
+  </div>
+</main>
+<script>
+const REAL=[[0.005808608677, 1.224106096], [0.3205869093, 1.59073067], [0.660664117, 1.963239615], [1.013755441, 2.360742002], [1.371530988, 2.659707291], [1.723589874, 3.000414274], [2.035893207, 3.222073288], [2.407906496, 3.512788319], [2.701709513, 3.728824437], [3.013916138, 3.913002561], [3.376586572, 4.096349085], [3.663041278, 4.249397977], [3.999647769, 4.382687356], [4.291474696, 4.478850247], [4.589609882, 4.57490886], [4.922989945, 4.643191551], [5.200951296, 4.670152207], [5.548274733, 4.695968288], [5.813000363, 4.685296], [6.159698867, 4.673272402], [6.41780894, 4.643783603], [6.687802028, 4.569940027], [7.007822326, 4.470037864], [7.26843661, 4.368974325], [7.602551342, 4.236537635], [7.844066109, 4.109502168], [8.116492607, 3.956359468], [8.402798545, 3.74352794], [8.667429039, 3.568216029], [8.982593959, 3.302880739], [9.197122681, 3.096968276], [9.512689544, 2.788275169], [9.754139141, 2.559652273], [9.988067396, 2.25894051], [10.25770537, 1.928678089], [10.47734588, 1.615315478], [10.76701013, 1.211065262], [10.99833978, 0.8699734692], [11.2261114, 0.5189719925], [11.488388, 0.05470848863]];
+const KIN=[[0.005808608677, 1.230760534], [0.3205869093, 1.583117659], [0.660664117, 1.945569478], [1.013755441, 2.301862748], [1.371530988, 2.642069934], [1.723589874, 2.956390687], [2.035893207, 3.218238364], [2.407906496, 3.509316512], [2.701709513, 3.723191621], [3.013916138, 3.934980791], [3.376586572, 4.160973295], [3.663041278, 4.32425661], [3.999647769, 4.498964512], [4.291474696, 4.635422846], [4.589609882, 4.76043735], [4.922989945, 4.883002003], [5.200951296, 4.971286474], [5.548274733, 5.063829046], [5.813000363, 5.121104769], [6.159698867, 5.178768988], [6.41780894, 5.20892404], [6.687802028, 5.22879922], [7.007822326, 5.236905586], [7.26843661, 5.231123966], [7.602551342, 5.207450816], [7.844066109, 5.17896194], [8.116492607, 5.135369132], [8.402798545, 5.076464602], [8.667429039, 5.010088689], [8.982593959, 4.91608395], [9.197122681, 4.842797017], [9.512689544, 4.721304447], [9.754139141, 4.617340962], [9.988067396, 4.507515779], [10.25770537, 4.369814111], [10.47734588, 4.248851427], [10.76701013, 4.07725186], [10.99833978, 3.93034752], [11.2261114, 3.77714533], [11.488388, 3.590216727], [11.538388, 3.553303216], [11.588388, 3.515980537], [11.638388, 3.478248691], [11.688388, 3.440107677], [11.738388, 3.401557496], [11.788388, 3.362598147], [11.838388, 3.32322963], [11.888388, 3.283451946], [11.938388, 3.243265094], [11.988388, 3.202669074], [12.038388, 3.161663887], [12.088388, 3.120249533], [12.138388, 3.07842601], [12.188388, 3.03619332], [12.238388, 2.993551463], [12.288388, 2.950500438], [12.338388, 2.907040245], [12.388388, 2.863170884], [12.438388, 2.818892356], [12.488388, 2.774204661], [12.538388, 2.729107797], [12.588388, 2.683601767], [12.638388, 2.637686568], [12.688388, 2.591362202], [12.738388, 2.544628668], [12.788388, 2.497485967], [12.838388, 2.449934098], [12.888388, 2.401973062], [12.938388, 2.353602857], [12.988388, 2.304823486], [13.038388, 2.255634946], [13.088388, 2.206037239], [13.138388, 2.156030365], [13.188388, 2.105614323], [13.238388, 2.054789113], [13.288388, 2.003554735], [13.338388, 1.95191119], [13.388388, 1.899858478], [13.438388, 1.847396597], [13.488388, 1.794525549], [13.538388, 1.741245334], [13.588388, 1.687555951], [13.638388, 1.6334574], [13.688388, 1.578949682], [13.738388, 1.524032796], [13.788388, 1.468706742], [13.838388, 1.412971521], [13.888388, 1.356827132], [13.938388, 1.300273576], [13.988388, 1.243310852], [14.038388, 1.18593896], [14.088388, 1.128157901], [14.138388, 1.069967674], [14.188388, 1.01136828], [14.238388, 0.9523597179], [14.288388, 0.8929419882], [14.338388, 0.8331150909], [14.388388, 0.772879026], [14.438388, 0.7122337935], [14.488388, 0.6511793934], [14.538388, 0.5897158256], [14.588388, 0.5278430903], [14.638388, 0.4655611873], [14.688388, 0.4028701168], [14.738388, 0.3397698786], [14.788388, 0.2762604728], [14.838388, 0.2123418994], [14.888388, 0.1480141584], [14.938388, 0.08327724973], [14.988388, 0.01813117348]];
+const PMADS=[[0.005808608677, 1.2242], [0.3205869093, 1.5684], [0.660664117, 1.9313], [1.013755441, 2.2907], [1.371530988, 2.6287], [1.723589874, 2.9323], [2.035893207, 3.1871], [2.407906496, 3.4649], [2.701709513, 3.6628], [3.013916138, 3.8573], [3.376586572, 4.0532], [3.663041278, 4.1902], [3.999647769, 4.3275], [4.291474696, 4.4244], [4.589609882, 4.5045], [4.922989945, 4.5693], [5.200951296, 4.6024], [5.548274733, 4.618], [5.813000363, 4.6099], [6.159698867, 4.5724], [6.41780894, 4.5245], [6.687802028, 4.4544], [7.007822326, 4.3474], [7.26843661, 4.2412], [7.602551342, 4.074], [7.844066109, 3.9354], [8.116492607, 3.7578], [8.402798545, 3.5471], [8.667429039, 3.329], [8.982593959, 3.0441], [9.197122681, 2.8299], [9.512689544, 2.4938], [9.754139141, 2.2095], [9.988067396, 1.9156], [10.25770537, 1.5557], [10.47734588, 1.2441], [10.76701013, 0.8077], [10.99833978, 0.4317], [11.2261114, 0.0403]];
+function near(model, x) {
+  for (const p of model) if (Math.abs(p[0] - x) < 1e-6) return p[1];
+  return null;
+}
+const SHARED = REAL.filter(([x]) => near(PMADS, x) !== null && near(KIN, x) !== null);
+function rmse(model) {
+  let s = 0;
+  for (const [x, y] of SHARED) s += (near(model, x) - y) ** 2;
+  return Math.sqrt(s / SHARED.length);
+}
+const rP = rmse(PMADS), rK = rmse(KIN);
+const statLine = `RMSE vs. measured (n = ${SHARED.length}): PMADS ${rP.toFixed(2)} m, kinematic (ideal) ${rK.toFixed(2)} m`;
+document.getElementById('stats').textContent = statLine;
+
+const COL = { real: '#1b2230', kin: '#d93a3a', pm: '#1f5fc4', grid: '#e6e9ef', axis: '#5a6475' };
+const XMAX = 15, YMAX = 6;
+
+function draw(ctx, W, H, forExport) {
+  const u = W / 1000;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  const top = forExport ? 90 * u : 30 * u;
+  const L = 70 * u, R = W - 30 * u, T = top, B = H - 70 * u;
+  const sx = x => L + (x / XMAX) * (R - L);
+  const sy = y => B - (y / YMAX) * (B - T);
+  const font = s => `${s * u}px "Segoe UI", system-ui, Helvetica, Arial, sans-serif`;
+
+  if (forExport) {
+    ctx.fillStyle = COL.real; ctx.font = '600 ' + font(24); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText('Drop kick trajectory: measured vs. predicted', L, 42 * u);
+    ctx.fillStyle = COL.axis; ctx.font = font(15);
+    ctx.fillText(statLine, L, 68 * u);
+  }
+
+  ctx.lineWidth = 1 * u; ctx.strokeStyle = COL.grid;
+  ctx.fillStyle = COL.axis; ctx.font = font(14);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (let x = 0; x <= XMAX; x++) {
+    ctx.beginPath(); ctx.moveTo(sx(x), T); ctx.lineTo(sx(x), B); ctx.stroke();
+    ctx.fillText(x, sx(x), B + 8 * u);
+  }
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (let y = 0; y <= YMAX; y++) {
+    ctx.beginPath(); ctx.moveTo(L, sy(y)); ctx.lineTo(R, sy(y)); ctx.stroke();
+    ctx.fillText(y, L - 10 * u, sy(y));
+  }
+  ctx.strokeStyle = COL.axis; ctx.lineWidth = 1.2 * u;
+  ctx.beginPath(); ctx.moveTo(L, T); ctx.lineTo(L, B); ctx.lineTo(R, B); ctx.stroke();
+
+  ctx.font = font(15); ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.fillText('Horizontal position (m)', (L + R) / 2, H - 22 * u);
+  ctx.save(); ctx.translate(22 * u, (T + B) / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Height (m)', 0, 0); ctx.restore();
+
+  ctx.save();
+  ctx.beginPath(); ctx.rect(L, T, R - L, B - T); ctx.clip();
+  function line(data, color, width, dash) {
+    ctx.strokeStyle = color; ctx.lineWidth = width * u; ctx.setLineDash(dash.map(d => d * u));
+    ctx.lineJoin = 'round'; ctx.beginPath();
+    data.forEach(([x, y], i) => i ? ctx.lineTo(sx(x), sy(y)) : ctx.moveTo(sx(x), sy(y)));
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+  line(KIN, COL.kin, 2.5, [8, 6]);
+  line(PMADS, COL.pm, 3, []);
+  for (const [x, y] of REAL) {
+    ctx.beginPath(); ctx.arc(sx(x), sy(y), 4.5 * u, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff'; ctx.fill();
+    ctx.strokeStyle = COL.real; ctx.lineWidth = 2 * u; ctx.stroke();
+  }
+  ctx.restore();
+
+  const lx = R - 290 * u, ly = T + 20 * u, gap = 28 * u;
+  ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.fillRect(lx - 14 * u, ly - 16 * u, 290 * u, gap * 3 + 8 * u);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.font = font(15);
+  const items = [
+    ['Measured (video analysis)', 'pt'],
+    ['PMADS simulation with drag', 'pm'],
+    ['Kinematic (ideal)', 'kin']
+  ];
+  items.forEach(([label, k], i) => {
+    const y = ly + i * gap;
+    if (k === 'pt') {
+      ctx.beginPath(); ctx.arc(lx + 15 * u, y, 4.5 * u, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff'; ctx.fill(); ctx.strokeStyle = COL.real; ctx.lineWidth = 2 * u; ctx.stroke();
+    } else {
+      ctx.strokeStyle = k === 'pm' ? COL.pm : COL.kin; ctx.lineWidth = (k === 'pm' ? 3 : 2.5) * u;
+      ctx.setLineDash(k === 'kin' ? [8 * u, 6 * u] : []);
+      ctx.beginPath(); ctx.moveTo(lx, y); ctx.lineTo(lx + 30 * u, y); ctx.stroke(); ctx.setLineDash([]);
+    }
+    ctx.fillStyle = COL.real; ctx.fillText(label, lx + 42 * u, y);
+  });
+}
+
+const canvas = document.getElementById('c');
+function render() {
+  const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+  draw(canvas.getContext('2d'), canvas.width, canvas.height, false);
+}
+window.addEventListener('resize', render);
+render();
+
+document.getElementById('dl').addEventListener('click', () => {
+  const off = document.createElement('canvas');
+  off.width = 2400; off.height = 1560;
+  draw(off.getContext('2d'), off.width, off.height, true);
+  const a = document.createElement('a');
+  a.download = 'pmads_vs_measured_trajectory.png';
+  a.href = off.toDataURL('image/png');
+  document.body.appendChild(a); a.click(); a.remove();
+});
+</script>
+</body>
+</html>

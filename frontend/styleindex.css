@@ -111,11 +111,11 @@ a#game-cta {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 40px 60px;
+    padding: 20px 60px;
     background: #fff;
     border-top: 1.5px solid #e5e5e5;
     border-bottom: 1.5px solid #e5e5e5;
-    margin: 20px 0;
+    margin: 12px 0;
     gap: 0;
 }
 
@@ -123,12 +123,12 @@ a#game-cta {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     flex: 1;
 }
 
 .stat-number {
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 800;
     color: #0b5190;
     line-height: 1;
@@ -149,7 +149,7 @@ a#game-cta {
 }
 
 .stat-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: #6b7280;
     text-transform: uppercase;
@@ -159,7 +159,7 @@ a#game-cta {
 
 .stat-divider {
     width: 1.5px;
-    height: 48px;
+    height: 36px;
     background: #e5e5e5;
     flex-shrink: 0;
 }
@@ -207,6 +207,49 @@ a#game-cta {
     max-width: 620px;
 }
 
+#accuracy {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 24px 60px 40px;
+}
+
+#accuracy-text {
+    flex: 1;
+}
+
+#accuracy-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0b5190;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+}
+
+.accuracy-para {
+    font-size: 16px;
+    font-weight: 400;
+    color: #36454f;
+    margin: 0 0 14px;
+    line-height: 1.75;
+}
+
+.accuracy-note {
+    font-size: 13px;
+    color: #6b7280;
+    border-left: 3px solid #e5e5e5;
+    padding-left: 12px;
+    margin-top: 20px;
+}
+
+#accuracy-img {
+    width: 55%;
+    flex-shrink: 0;
+    border-radius: 12px;
+    border: 1.5px solid #e5e5e5;
+    background: #fff;
+}
+
 .divider {
     height: 1.5px;
     background-color: #e5e5e5;
@@ -226,6 +269,15 @@ a#game-cta {
 
     .stat-item {
         flex: 0 0 calc(33% - 16px);
+    }
+
+    #accuracy {
+        flex-direction: column;
+        padding: 32px 30px;
+    }
+
+    #accuracy-img {
+        width: 100%;
     }
 }
 
